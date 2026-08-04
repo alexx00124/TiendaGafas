@@ -4,5 +4,6 @@ node_modules/
 .env.dev
 dist/
 .firebase/
+service-account.json
 package-lock.json
-debug.log
+debug.logfunctions/firebase-debug.log

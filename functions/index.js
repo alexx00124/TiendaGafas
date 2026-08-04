@@ -1,16 +1,30 @@
-const functions = require('firebase-functions');
-const admin = require('firebase-admin');
+const { onDocumentCreated } = require('firebase-functions/v2/firestore');
+const { logger } = require('firebase-functions/v2');
+const { initializeApp } = require('firebase-admin/app');
+const { getFirestore } = require('firebase-admin/firestore');
 
-admin.initializeApp();
+initializeApp();
 
-exports.lowercaseProductName = functions.firestore.document('/products/{documentId}')
-    .onCreate((snap, context) => {
-        const name = snap.data().name;
+exports.lowercaseProductName = onDocumentCreated(
+  'products/{documentId}',
+  async (event) => {
+    const snapshot = event.data;
+    if (!snapshot) {
+      logger.log('No document data, skipping.');
+      return;
+    }
 
-        functions.logger.log('Lowercasing product name', context.params.documentId, name);
+    const name = snapshot.data().name;
+    logger.log(
+      'Lowercasing product name',
+      event.params.documentId,
+      name
+    );
 
-        const lowercaseName = name.toLowerCase();
-
-        return snap.ref.set({ name_lower: lowercaseName }, { merge: true });
-    });
-
+    const lowercaseName = name.toLowerCase();
+    await getFirestore()
+      .collection('products')
+      .doc(event.params.documentId)
+      .set({ name_lower: lowercaseName }, { merge: true });
+  }
+);
