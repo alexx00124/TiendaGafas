@@ -12,5 +12,14 @@
   },
   "transformIgnorePatterns": [
       "/node_modules/(?!(@wojtekmaj|enzyme)/)"
-  ]
+  ],
+  "coverageDirectory": "coverage",
+  "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!src/index.jsx",
+      "!src/**/index.js",
+      "!src/constants/**",
+      "!src/**/*.{test,spec}.{js,jsx}"
+  ],
+  "coverageReporters": ["text", "lcov", "clover"]
 }
