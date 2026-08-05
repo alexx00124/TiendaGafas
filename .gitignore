@@ -6,4 +6,5 @@ dist/
 .firebase/
 service-account.json
 package-lock.json
-debug.logfunctions/firebase-debug.log
+debug.log
+functions/firebase-debug.log
