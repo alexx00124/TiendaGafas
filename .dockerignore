@@ -1,0 +1,11 @@
+node_modules
+.git
+dist
+coverage
+.env
+.env.test
+.env.local
+service-account.json
+*.log
+.vscode
+.idea
