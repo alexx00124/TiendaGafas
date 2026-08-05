@@ -7,8 +7,14 @@
         "plugin:react/recommended",
         "airbnb"
     ],
-    "parser": "babel-eslint",
+    "parser": "@babel/eslint-parser",
     "parserOptions": {
+        "requireConfigFile": false,
+        "babelOptions": {
+            "presets": [
+                "@babel/preset-react"
+            ]
+        },
         "ecmaFeatures": {
             "jsx": true
         },
@@ -36,10 +42,22 @@
                 "functions": "ignore"
             }
         ],
-        "no-console": 0
+        "no-console": 0,
+        "template-curly-spacing": 0
     },
     "settings": {
         "import/resolver": {
+            "alias": {
+                "map": [
+                    ["@", "./src"]
+                ],
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
+            },
             "node": {
                 "paths": [
                     "src"

@@ -14,9 +14,13 @@
     "dev": "vite",
     "build": "vite build  && cd dist && cp index.html 404.html",
     "serve": "vite preview",
+    "lint": "eslint src --ext .js,.jsx",
     "test": "cross-env NODE_ENV=test jest --config=jest.config.json"
   },
   "devDependencies": {
+    "@babel/core": "^7.29.7",
+    "@babel/eslint-parser": "^7.29.7",
+    "@babel/preset-react": "^7.29.7",
     "@vitejs/plugin-react": "^2.0.0",
     "copy-webpack-plugin": "^8.1.1",
     "cross-env": "^7.0.3",
@@ -27,6 +31,7 @@
     "enzyme-to-json": "^3.6.2",
     "eslint": "^7.25.0",
     "eslint-config-airbnb": "^18.2.1",
+    "eslint-import-resolver-alias": "^1.1.2",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
