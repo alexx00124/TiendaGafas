@@ -100,7 +100,7 @@ class Firebase {
   setAuthPersistence = () =>
     this.auth.setPersistence(app.auth.Auth.Persistence.LOCAL);
 
-  // // PRODUCT ACTIONS --------------
+  // PRODUCT ACTIONS
 
   getSingleProduct = (id) => this.db.collection("products").doc(id).get();
 
@@ -185,10 +185,8 @@ class Firebase {
             .where("keywords", "array-contains-any", searchKey.split(" "))
             .limit(12);
 
-          // const totalResult = await totalQueryRef.get();
           const nameSnaps = await searchedNameRef.get();
           const keywordsSnaps = await searchedKeywordsRef.get();
-          // const total = totalResult.docs.length;
 
           clearTimeout(timeout);
           if (!didTimeout) {
@@ -209,7 +207,6 @@ class Firebase {
               });
             }
 
-            // MERGE PRODUCTS
             const mergedProducts = [
               ...searchedNameProducts,
               ...searchedKeywordsProducts,

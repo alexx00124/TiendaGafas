@@ -8,6 +8,7 @@ import {
   Field, FieldArray, Form, Formik
 } from 'formik';
 import { useFileHandler } from '@/hooks';
+import { displayActionMessage } from '@/helpers/utils';
 import PropType from 'prop-types';
 import React from 'react';
 import * as Yup from 'yup';
@@ -83,8 +84,7 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
         imageCollection: imageFile.imageCollection
       });
     } else {
-      // eslint-disable-next-line no-alert
-      alert('Product thumbnail image is required.');
+      displayActionMessage('Product thumbnail image is required.', 'error');
     }
   };
 

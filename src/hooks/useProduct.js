@@ -20,7 +20,7 @@ const useProduct = (id) => {
           const doc = await firebase.getSingleProduct(id);
 
           if (doc.exists) {
-            const data = { ...doc.data(), id: doc.ref.id };
+            const data = { ...doc.data(), id: doc.id };
 
             if (didMount) {
               setProduct(data);

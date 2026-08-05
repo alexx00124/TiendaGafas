@@ -10,7 +10,6 @@ export const selectFilter = (products, filter) => {
       ? (product.price >= filter.minPrice && product.price <= filter.maxPrice)
       : true;
     const matchKeyword = product.keywords ? product.keywords.includes(keyword) : true;
-    // const matchName = product.name ? product.name.toLowerCase().includes(keyword) : true;
     const matchDescription = product.description
       ? product.description.toLowerCase().includes(keyword)
       : true;

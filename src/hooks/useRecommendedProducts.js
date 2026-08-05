@@ -25,7 +25,7 @@ const useRecommendedProducts = (itemsCount) => {
 
         docs.forEach((snap) => {
           const data = snap.data();
-          items.push({ id: snap.ref.id, ...data });
+          items.push({ id: snap.id, ...data });
         });
 
         if (didMount) {
