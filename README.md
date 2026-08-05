@@ -1,6 +1,7 @@
-# Salinaka | E-commerce react app
-Simple ecommerce react js app with firebase [typescript].
-![Firebase Deploy](https://github.com/jgudo/ecommerce-react/workflows/Firebase%20Deploy/badge.svg)
+# Tienda de Gafas — E-commerce React
+E-commerce de gafas con React 17 + Vite + Firebase.
+[![Coverage Status](https://coveralls.io/repos/github/alexx00124/TiendaGafas/badge.svg?branch=master)](https://coveralls.io/github/alexx00124/TiendaGafas?branch=master)
+![Firebase Deploy](https://github.com/alexx00124/TiendaGafas/workflows/Firebase%20Deploy/badge.svg)
 
 ### [Live demo](https://salinaka-ecommerce.web.app/)
 
