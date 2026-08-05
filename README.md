@@ -1,5 +1,6 @@
 # Tienda de Gafas — E-commerce React
 E-commerce de gafas con React 17 + Vite + Firebase.
+[![CI](https://github.com/alexx00124/TiendaGafas/actions/workflows/ci.yml/badge.svg)](https://github.com/alexx00124/TiendaGafas/actions/workflows/ci.yml)
 [![Coverage Status](https://coveralls.io/repos/github/alexx00124/TiendaGafas/badge.svg?branch=master)](https://coveralls.io/github/alexx00124/TiendaGafas?branch=master)
 ![Firebase Deploy](https://github.com/alexx00124/TiendaGafas/workflows/Firebase%20Deploy/badge.svg)
 
