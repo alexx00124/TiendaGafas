@@ -34,3 +34,36 @@ services:
       - .:/app
       - /app/node_modules
     command: yarn dev --host 0.0.0.0
+
+  sonarqube:
+    image: sonarqube:community
+    ports:
+      - "9000:9000"
+    environment:
+      - SONAR_ESBOOTSTRAP_CHECKS_DISABLE=true
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+    restart: unless-stopped
+
+  sonar-scanner:
+    image: sonarsource/sonar-scanner-cli
+    depends_on:
+      - sonarqube
+    environment:
+      - SONAR_HOST_URL=http://sonarqube:9000
+      - SONAR_TOKEN=${SONAR_TOKEN:-}
+    volumes:
+      - .:/usr/src
+    command: >
+      sonar-scanner
+      -Dsonar.projectKey=tienda-de-gafas
+      -Dsonar.sources=src
+      -Dsonar.exclusions=node_modules/**,dist/**,static/**,coverage/**,test/**
+      -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+
+volumes:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
