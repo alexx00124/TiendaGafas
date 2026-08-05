@@ -1,0 +1,16 @@
+# Snyk (https://snyk.io)
+# Archivo de política para exclusiones y configuración específica
+
+version: v1.25.0
+ignore:
+  # Ignorar vulnerabilidades de desarrollo (no afectan producción)
+  snyk:js:
+    'node_modules/uglifyjs-webpack-plugin':
+      - js-UglifyJs-DoS':
+          reason: 'Dependencia de desarrollo, no en bundle final'
+          expires: '2026-12-31T00:00:00.000Z'
+    'node_modules/webpack-dev-server':
+      - js-WebpackDevServer-OpenRedirect':
+          reason: 'Dependencia de desarrollo, no expuesto en producción'
+          expires: '2026-12-31T00:00:00.000Z'
+patch: {}

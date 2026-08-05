@@ -1,0 +1,80 @@
+# Semgrep Rules — Reglas de seguridad para React/JavaScript
+rules:
+  # Detectar uso de eval() — vulnerabilidad de inyección
+  - id: no-eval
+    pattern: eval(...)
+    message: >
+      Uso de eval() detectado. Esto es una vulnerabilidad de inyección de código.
+      Usa alternativas seguras como JSON.parse() o funciones específicas.
+    languages: [javascript, typescript]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-95: Eval Injection"
+      owasp: "A03:2021 - Injection"
+
+  # Detectar innerHTML — vulnerabilidad XSS
+  - id: no-innerhtml
+    pattern: $EL.innerHTML = $EXPR
+    message: >
+      Asignación a innerHTML detectada. Esto puede causar vulnerabilidades XSS.
+      Usa textContent o librerías de sanitización como DOMPurify.
+    languages: [javascript, typescript]
+    severity: WARNING
+    metadata:
+      cwe: "CWE-79: Cross-site Scripting"
+      owasp: "A03:2021 - Injection"
+
+  # Detectar document.write — vulnerabilidad XSS
+  - id: no-document-write
+    pattern: document.write(...)
+    message: >
+      Uso de document.write() detectado. Esto puede causar vulnerabilidades XSS.
+      Usa DOM manipulation moderna con appendChild/textContent.
+    languages: [javascript, typescript]
+    severity: WARNING
+    metadata:
+      cwe: "CWE-79: Cross-site Scripting"
+
+  # Detectar console.log en producción — información sensible
+  - id: no-console-log
+    pattern: console.log(...)
+    message: >
+      console.log detectado. Remueve logs antes de producción para evitar
+      filtración de información sensible.
+    languages: [javascript, typescript]
+    severity: WARNING
+    metadata:
+      cwe: "CWE-215: Insertion of Sensitive Information Into Debugging Code"
+
+  # Detectar URL hardcodeada — posibles secrets
+  - id: no-hardcoded-urls
+    pattern: |
+      const $URL = "https://..."
+    message: >
+      URL hardcodeada detectada. Usa variables de entorno para URLs sensibles.
+    languages: [javascript, typescript]
+    severity: WARNING
+    metadata:
+      cwe: "CWE-798: Use of Hard-coded Credentials"
+
+  # Detectar dangerouslySetInnerHTML — XSS
+  - id: no-dangerously-set-innerhtml
+    pattern: dangerouslySetInnerHTML={$EXPR}
+    message: >
+      dangerouslySetInnerHTML detectado. Asegúrate de sanitizar el HTML
+      con DOMPurify o similar antes de renderizar.
+    languages: [javascript, typescript]
+    severity: WARNING
+    metadata:
+      cwe: "CWE-79: Cross-site Scripting"
+      owasp: "A03:2021 - Injection"
+
+# Exclusiones — no escanear esto
+paths:
+  exclude:
+    - node_modules
+    - dist
+    - coverage
+    - functions/node_modules
+    - test
+    - "*.min.js"
