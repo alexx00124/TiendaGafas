@@ -37,7 +37,7 @@ const SignUp = ({ history }) => {
   useEffect(() => () => {
     dispatch(setAuthStatus(null));
     dispatch(setAuthenticating(false));
-  }, []);
+  }, [dispatch]);
 
   const onClickSignIn = () => history.push(SIGNIN);
 

@@ -321,7 +321,10 @@ ProductForm.propTypes = {
     maxQuantity: PropType.number,
     description: PropType.string,
     keywords: PropType.arrayOf(PropType.string),
-    imageCollection: PropType.arrayOf(PropType.object),
+    imageCollection: PropType.arrayOf(PropType.shape({
+      id: PropType.oneOfType([PropType.string, PropType.number]),
+      url: PropType.string
+    })),
     sizes: PropType.arrayOf(PropType.string),
     image: PropType.string,
     imageUrl: PropType.string,

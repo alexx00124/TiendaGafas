@@ -1,6 +1,6 @@
-import { useDidMount } from '@/hooks';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import firebase from '@/services/firebase';
+import useDidMount from './useDidMount';
 
 const useFeaturedProducts = (itemsCount) => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -8,7 +8,7 @@ const useFeaturedProducts = (itemsCount) => {
   const [error, setError] = useState('');
   const didMount = useDidMount(true);
 
-  const fetchFeaturedProducts = async () => {
+  const fetchFeaturedProducts = useCallback(async () => {
     try {
       setLoading(true);
       setError('');
@@ -39,13 +39,13 @@ const useFeaturedProducts = (itemsCount) => {
         setLoading(false);
       }
     }
-  };
+  }, [didMount, itemsCount]);
 
   useEffect(() => {
     if (featuredProducts.length === 0 && didMount) {
       fetchFeaturedProducts();
     }
-  }, []);
+  }, [didMount, fetchFeaturedProducts, featuredProducts.length]);
 
   return {
     featuredProducts, fetchFeaturedProducts, isLoading, error

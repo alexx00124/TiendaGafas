@@ -30,7 +30,8 @@ const ImageLoader = ({ src, alt, className }) => {
 };
 
 ImageLoader.defaultProps = {
-  className: 'image-loader'
+  className: 'image-loader',
+  alt: ''
 };
 
 ImageLoader.propTypes = {

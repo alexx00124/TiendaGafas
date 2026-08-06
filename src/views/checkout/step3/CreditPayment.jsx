@@ -2,7 +2,7 @@
 /* eslint-disable no-else-return */
 import { CustomInput } from '@/components/formik';
 import { Field, useFormikContext } from 'formik';
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 
 const CreditPayment = () => {
   const { values, setValues } = useFormikContext();
@@ -11,7 +11,7 @@ const CreditPayment = () => {
   const containerRef = useRef(null);
   const checkboxContainerRef = useRef(null);
 
-  const toggleCollapse = () => {
+  const toggleCollapse = useCallback(() => {
     const cn = containerRef.current;
     const cb = checkboxContainerRef.current;
     const cl = collapseContainerRef.current;
@@ -25,11 +25,11 @@ const CreditPayment = () => {
         cn.style.height = `${cb.offsetHeight}px`;
       }
     }
-  };
+  }, [values]);
 
   useEffect(() => {
     toggleCollapse();
-  }, [values.type]);
+  }, [toggleCollapse, values.type]);
 
   const onCreditModeChange = (e) => {
     if (e.target.checked) {

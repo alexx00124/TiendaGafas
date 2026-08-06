@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
-import { FeaturedProduct } from '@/components/product';
 import PropType from 'prop-types';
 import React from 'react';
+import FeaturedProduct from './ProductFeatured';
 
 const ProductShowcase = ({ products, skeletonCount }) => (
   <div className="product-display-grid">

@@ -39,7 +39,7 @@ const EditProfile = () => {
 
   useEffect(() => () => {
     dispatch(setLoading(false));
-  }, []);
+  }, [dispatch]);
 
   const { profile, auth, isLoading } = useSelector((state) => ({
     profile: state.profile,

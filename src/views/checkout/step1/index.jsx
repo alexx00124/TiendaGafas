@@ -67,7 +67,13 @@ const OrderSummary = ({ basket, subtotal }) => {
 };
 
 OrderSummary.propTypes = {
-  basket: PropType.arrayOf(PropType.object).isRequired,
+  basket: PropType.arrayOf(PropType.shape({
+    id: PropType.string,
+    name: PropType.string,
+    brand: PropType.string,
+    price: PropType.number,
+    quantity: PropType.number
+  })).isRequired,
   subtotal: PropType.number.isRequired
 };
 

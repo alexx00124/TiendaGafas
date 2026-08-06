@@ -4,7 +4,7 @@ import { Boundary, MessageDisplay } from '@/components/common';
 import { ProductGrid } from '@/components/product';
 import { useDidMount } from '@/hooks';
 import PropType from 'prop-types';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRequestStatus } from '@/redux/actions/miscActions';
 import { searchProduct } from '@/redux/actions/productActions';
@@ -13,6 +13,7 @@ const Search = ({ match }) => {
   const { searchKey } = match.params;
   const dispatch = useDispatch();
   const didMount = useDidMount(true);
+  const searchedKeyRef = useRef('');
   const store = useSelector((state) => ({
     isLoading: state.app.loading,
     products: state.products.searchedProducts.items,
@@ -21,14 +22,15 @@ const Search = ({ match }) => {
   }));
 
   useEffect(() => {
-    if (didMount && !store.isLoading) {
+    if (didMount && !store.isLoading && searchedKeyRef.current !== searchKey) {
+      searchedKeyRef.current = searchKey;
       dispatch(searchProduct(searchKey));
     }
-  }, [searchKey]);
+  }, [didMount, dispatch, searchKey, store.isLoading]);
 
   useEffect(() => () => {
     dispatch(setRequestStatus(''));
-  }, []);
+  }, [dispatch]);
 
   if (store.requestStatus && !store.isLoading) {
     return (

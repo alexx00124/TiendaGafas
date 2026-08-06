@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import { Boundary, MessageDisplay } from '@/components/common';
 import PropType from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setLoading } from '@/redux/actions/miscActions';
 import { getProducts } from '@/redux/actions/productActions';
@@ -13,10 +13,10 @@ const ProductList = (props) => {
   const [isFetching, setFetching] = useState(false);
   const dispatch = useDispatch();
 
-  const fetchProducts = () => {
+  const fetchProducts = useCallback(() => {
     setFetching(true);
     dispatch(getProducts(products.lastRefKey));
-  };
+  }, [dispatch, products.lastRefKey]);
 
   useEffect(() => {
     if (products.items.length === 0 || !products.lastRefKey) {
@@ -25,7 +25,7 @@ const ProductList = (props) => {
 
     window.scrollTo(0, 0);
     return () => dispatch(setLoading(false));
-  }, []);
+  }, [dispatch, fetchProducts, products.items.length, products.lastRefKey]);
 
   useEffect(() => {
     setFetching(false);

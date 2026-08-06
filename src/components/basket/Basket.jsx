@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-import { BasketItem, BasketToggle } from '@/components/basket';
 import { Boundary, Modal } from '@/components/common';
 import { CHECKOUT_STEP_1 } from '@/constants/routes';
 import firebase from 'firebase/firebase';
@@ -9,6 +8,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { clearBasket } from '@/redux/actions/basketActions';
+import BasketToggle from './BasketToggle';
+import BasketItem from './BasketItem';
 
 const Basket = () => {
   const { isOpenModal, onOpenModal, onCloseModal } = useModal();
@@ -31,7 +32,7 @@ const Basket = () => {
           console.log(e);
         });
     }
-  }, [basket.length]);
+  }, [basket, didMount]);
 
   const onCheckOut = () => {
     if ((basket.length !== 0 && user)) {

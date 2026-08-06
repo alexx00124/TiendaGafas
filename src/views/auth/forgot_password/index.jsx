@@ -22,7 +22,7 @@ const ForgotPassword = () => {
       setForgotPWStatus(authStatus);
       setIsSending(isAuthenticating);
     }
-  }, [authStatus, isAuthenticating]);
+  }, [authStatus, didMount, isAuthenticating]);
 
   const onEmailChange = (value, error) => {
     setField({ email: value, error });

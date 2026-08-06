@@ -36,7 +36,7 @@ const Filters = ({ closeModal }) => {
 
     setFilter(filter);
     window.scrollTo(0, 0);
-  }, [filter]);
+  }, [closeModal, didMount, filter, history]);
 
 
   const onPriceChange = (minVal, maxVal) => {

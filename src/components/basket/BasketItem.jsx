@@ -1,5 +1,4 @@
 import { CloseOutlined } from '@ant-design/icons';
-import { BasketItemControl } from '@/components/basket';
 import { ImageLoader } from '@/components/common';
 import { displayMoney } from '@/helpers/utils';
 import PropType from 'prop-types';
@@ -7,6 +6,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { removeFromBasket } from '@/redux/actions/basketActions';
+import BasketItemControl from './BasketItemControl';
 
 const BasketItem = ({ product }) => {
   const dispatch = useDispatch();

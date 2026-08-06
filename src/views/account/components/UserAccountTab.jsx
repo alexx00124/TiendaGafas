@@ -7,7 +7,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-const UserProfile = (props) => {
+const UserProfile = ({ history }) => {
   const profile = useSelector((state) => state.profile);
 
   return (
@@ -30,7 +30,7 @@ const UserProfile = (props) => {
           </div>
           <button
             className="button button-small user-profile-edit"
-            onClick={() => props.history.push(ACCOUNT_EDIT)}
+            onClick={() => history.push(ACCOUNT_EDIT)}
             type="button"
           >
             Edit Account
