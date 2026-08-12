@@ -11,3 +11,4 @@ service-account.json
 package-lock.json
 debug.log
 functions/firebase-debug.log
+.atl
