@@ -10,6 +10,11 @@ class Firebase {
 
     this.storage = app.storage();
     this.db = app.firestore();
+
+    if (import.meta.env.VITE_USE_EMULATOR === 'true') {
+      this.db.useEmulator('localhost', 4000);
+    }
+
     this.auth = app.auth();
   }
 

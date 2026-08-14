@@ -11,11 +11,21 @@ const env = fs.readFileSync(envPath, 'utf8').split('\n').reduce((acc, line) => {
 }, {});
 
 const serviceAccountPath = path.resolve(__dirname, '..', 'service-account.json');
-const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, 'utf8'));
+const usesServiceAccount = fs.existsSync(serviceAccountPath);
+const projectId = env.VITE_FIREBASE_PROJECT_ID || 'salinaka-ecommerce';
 
-initializeApp({
-  credential: cert(serviceAccount)
-});
+if (!usesServiceAccount && !process.env.FIRESTORE_EMULATOR_HOST) {
+  process.env.FIRESTORE_EMULATOR_HOST = 'localhost:4000';
+}
+
+if (usesServiceAccount) {
+  const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, 'utf8'));
+  initializeApp({ credential: cert(serviceAccount) });
+  console.log('Modo: proyecto Firebase real (service-account.json detectado).');
+} else {
+  initializeApp({ projectId });
+  console.log(`Modo: emulador local Firestore en ${process.env.FIRESTORE_EMULATOR_HOST}.`);
+}
 
 const db = getFirestore();
 
