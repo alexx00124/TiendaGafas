@@ -1,5 +1,6 @@
 export { default as AdminNavigation } from './AdminNavigation';
 export { default as AdminSideBar } from './AdminSidePanel';
+export { default as AuthStatus } from './AuthStatus';
 export { default as Badge } from './Badge';
 export { default as Boundary } from './Boundary';
 export { default as ColorChooser } from './ColorChooser';
@@ -13,6 +14,8 @@ export { default as Modal } from './Modal';
 export { default as Navigation } from './Navigation';
 export { default as Preloader } from './Preloader';
 export { default as PriceRange } from './PriceRange';
+export { default as ProductSection } from './ProductSection';
 export { default as SearchBar } from './SearchBar';
 export { default as SocialLogin } from './SocialLogin';
+export { default as SuspenseLoader } from './SuspenseLoader';
 

@@ -1,10 +1,10 @@
 import { ArrowRightOutlined, LoadingOutlined } from '@ant-design/icons';
-import { SocialLogin } from '@/components/common';
+import { AuthStatus, SocialLogin } from '@/components/common';
 import { CustomInput } from '@/components/formik';
 import { SIGNIN } from '@/constants/routes';
 import { Field, Form, Formik } from 'formik';
 import { useDocumentTitle, useScrollTop } from '@/hooks';
-import PropType from 'prop-types';
+import { historyShape } from '@/helpers/propTypes';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUp } from '@/redux/actions/authActions';
@@ -50,112 +50,91 @@ const SignUp = ({ history }) => {
   };
 
   return (
-    <div className="auth-content">
-      {authStatus?.success && (
-        <div className="loader">
-          <h3 className="toast-success auth-success">
-            {authStatus?.message}
-            <LoadingOutlined />
-          </h3>
-        </div>
-      )}
-      {!authStatus?.success && (
-        <>
-          {authStatus?.message && (
-            <h5 className="text-center toast-error">
-              {authStatus?.message}
-            </h5>
+    <AuthStatus authStatus={authStatus}>
+      <div className="auth-main">
+        <h3>Sign up to Salinaka</h3>
+        <Formik
+          initialValues={{
+            fullname: '',
+            email: '',
+            password: ''
+          }}
+          validateOnChange
+          validationSchema={SignInSchema}
+          onSubmit={onFormSubmit}
+        >
+          {() => (
+            <Form>
+              <div className="auth-field">
+                <Field
+                  disabled={isAuthenticating}
+                  name="fullname"
+                  type="text"
+                  label="* Full Name"
+                  placeholder="John Doe"
+                  style={{ textTransform: 'capitalize' }}
+                  component={CustomInput}
+                />
+              </div>
+              <div className="auth-field">
+                <Field
+                  disabled={isAuthenticating}
+                  name="email"
+                  type="email"
+                  label="* Email"
+                  placeholder="test@example.com"
+                  component={CustomInput}
+                />
+              </div>
+              <div className="auth-field">
+                <Field
+                  disabled={isAuthenticating}
+                  name="password"
+                  type="password"
+                  label="* Password"
+                  placeholder="Your Password"
+                  component={CustomInput}
+                />
+              </div>
+              <br />
+              <div className="auth-field auth-action auth-action-signup">
+                <button
+                  className="button auth-button"
+                  disabled={isAuthenticating}
+                  type="submit"
+                >
+                  {isAuthenticating ? 'Signing Up' : 'Sign Up'}
+                  &nbsp;
+                  {isAuthenticating ? <LoadingOutlined /> : <ArrowRightOutlined />}
+                </button>
+              </div>
+            </Form>
           )}
-          <div className={`auth ${authStatus?.message && (!authStatus?.success && 'input-error')}`}>
-            <div className="auth-main">
-              <h3>Sign up to Salinaka</h3>
-              <Formik
-                initialValues={{
-                  fullname: '',
-                  email: '',
-                  password: ''
-                }}
-                validateOnChange
-                validationSchema={SignInSchema}
-                onSubmit={onFormSubmit}
-              >
-                {() => (
-                  <Form>
-                    <div className="auth-field">
-                      <Field
-                        disabled={isAuthenticating}
-                        name="fullname"
-                        type="text"
-                        label="* Full Name"
-                        placeholder="John Doe"
-                        style={{ textTransform: 'capitalize' }}
-                        component={CustomInput}
-                      />
-                    </div>
-                    <div className="auth-field">
-                      <Field
-                        disabled={isAuthenticating}
-                        name="email"
-                        type="email"
-                        label="* Email"
-                        placeholder="test@example.com"
-                        component={CustomInput}
-                      />
-                    </div>
-                    <div className="auth-field">
-                      <Field
-                        disabled={isAuthenticating}
-                        name="password"
-                        type="password"
-                        label="* Password"
-                        placeholder="Your Password"
-                        component={CustomInput}
-                      />
-                    </div>
-                    <br />
-                    <div className="auth-field auth-action auth-action-signup">
-                      <button
-                        className="button auth-button"
-                        disabled={isAuthenticating}
-                        type="submit"
-                      >
-                        {isAuthenticating ? 'Signing Up' : 'Sign Up'}
-                        &nbsp;
-                        {isAuthenticating ? <LoadingOutlined /> : <ArrowRightOutlined />}
-                      </button>
-                    </div>
-                  </Form>
-                )}
-              </Formik>
-            </div>
-            <div className="auth-divider">
-              <h6>OR</h6>
-            </div>
-            <SocialLogin isLoading={isAuthenticating} />
-          </div>
-          <div className="auth-message">
-            <span className="auth-info">
-              <strong>Already have an account?</strong>
-            </span>
-            <button
-              className="button button-small button-border button-border-gray"
-              disabled={isAuthenticating}
-              onClick={onClickSignIn}
-              type="button"
-            >
-              Sign In
-            </button>
-          </div>
-        </>
-      )}
-    </div>
+        </Formik>
+      </div>
+      <div className="auth-divider">
+        <h6>OR</h6>
+      </div>
+      <SocialLogin isLoading={isAuthenticating} />
+      <div className="auth-message">
+        <span className="auth-info">
+          <strong>Already have an account?</strong>
+        </span>
+        <button
+          className="button button-small button-border button-border-gray"
+          disabled={isAuthenticating}
+          onClick={onClickSignIn}
+          type="button"
+        >
+          Sign In
+        </button>
+      </div>
+    </AuthStatus>
   );
 };
 
 SignUp.propTypes = {
-  history: PropType.shape({
-    push: PropType.func
-  }).isRequired
+  history: historyShape.isRequired
 };
 
 export default SignUp;

@@ -1,7 +1,7 @@
 import { CloseOutlined } from '@ant-design/icons';
 import { ImageLoader } from '@/components/common';
 import { displayMoney } from '@/helpers/utils';
-import PropType from 'prop-types';
+import { productShape } from '@/helpers/propTypes';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -70,25 +70,7 @@ const BasketItem = ({ product }) => {
 };
 
 BasketItem.propTypes = {
-  product: PropType.shape({
-    id: PropType.string,
-    name: PropType.string,
-    brand: PropType.string,
-    price: PropType.number,
-    quantity: PropType.number,
-    maxQuantity: PropType.number,
-    description: PropType.string,
-    keywords: PropType.arrayOf(PropType.string),
-    selectedSize: PropType.string,
-    selectedColor: PropType.string,
-    imageCollection: PropType.arrayOf(PropType.string),
-    sizes: PropType.arrayOf(PropType.number),
-    image: PropType.string,
-    imageUrl: PropType.string,
-    isFeatured: PropType.bool,
-    isRecommended: PropType.bool,
-    availableColors: PropType.arrayOf(PropType.string)
-  }).isRequired
+  product: productShape.isRequired
 };
 
 export default BasketItem;

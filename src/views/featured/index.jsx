@@ -1,5 +1,4 @@
-import { MessageDisplay } from '@/components/common';
-import { ProductShowcaseGrid } from '@/components/product';
+import { ProductSection } from '@/components/common';
 import { useDocumentTitle, useFeaturedProducts, useScrollTop } from '@/hooks';
 import bannerImg from '@/images/banner-guy.png';
 import React from 'react';
@@ -26,22 +25,12 @@ const FeaturedProducts = () => {
             <img src={bannerImg} alt="" />
           </div>
         </div>
-        <div className="display">
-          <div className="product-display-grid">
-            {(error && !isLoading) ? (
-              <MessageDisplay
-                message={error}
-                action={fetchFeaturedProducts}
-                buttonLabel="Try Again"
-              />
-            ) : (
-              <ProductShowcaseGrid
-                products={featuredProducts}
-                skeletonCount={6}
-              />
-            )}
-          </div>
-        </div>
+        <ProductSection
+          error={error}
+          isLoading={isLoading}
+          products={featuredProducts}
+          fetchProducts={fetchFeaturedProducts}
+        />
       </div>
     </main>
   );

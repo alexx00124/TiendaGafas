@@ -1,4 +1,4 @@
-import { LoadingOutlined } from '@ant-design/icons';
+import SuspenseLoader from '@/components/common/SuspenseLoader';
 import { useDocumentTitle, useProduct, useScrollTop } from '@/hooks';
 import PropType from 'prop-types';
 import React, { lazy, Suspense } from 'react';
@@ -23,14 +23,7 @@ const EditProduct = ({ match }) => {
       {error && <Redirect to="/dashboard/products" />}
       <h2>Edit Product</h2>
       {product && (
-        <Suspense fallback={(
-          <div className="loader" style={{ minHeight: '80vh' }}>
-            <h6>Loading ... </h6>
-            <br />
-            <LoadingOutlined />
-          </div>
-        )}
-        >
+        <Suspense fallback={<SuspenseLoader />}>
           <ProductForm
             isLoading={isLoading}
             onSubmit={onSubmitForm}

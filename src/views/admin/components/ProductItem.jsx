@@ -1,7 +1,7 @@
 import { ImageLoader } from '@/components/common';
 import { EDIT_PRODUCT } from '@/constants/routes';
 import { displayActionMessage, displayDate, displayMoney } from '@/helpers/utils';
-import PropType from 'prop-types';
+import { productShape } from '@/helpers/propTypes';
 import React, { useRef } from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { useDispatch } from 'react-redux';
@@ -111,26 +111,7 @@ const ProductItem = ({ product }) => {
 };
 
 ProductItem.propTypes = {
-  product: PropType.shape({
-    id: PropType.string,
-    name: PropType.string,
-    brand: PropType.string,
-    price: PropType.number,
-    maxQuantity: PropType.number,
-    description: PropType.string,
-    keywords: PropType.arrayOf(PropType.string),
-    imageCollection: PropType.arrayOf(PropType.shape({
-      id: PropType.oneOfType([PropType.string, PropType.number]),
-      url: PropType.string
-    })),
-    sizes: PropType.arrayOf(PropType.string),
-    image: PropType.string,
-    imageUrl: PropType.string,
-    isFeatured: PropType.bool,
-    isRecommended: PropType.bool,
-    dateAdded: PropType.number,
-    availableColors: PropType.arrayOf(PropType.string)
-  }).isRequired
+  product: productShape.isRequired
 };
 
 export default withRouter(ProductItem);
