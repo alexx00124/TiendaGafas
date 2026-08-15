@@ -2,7 +2,6 @@ import {
   DownOutlined, LoadingOutlined, LogoutOutlined, UserOutlined
 } from '@ant-design/icons';
 import { ACCOUNT } from '@/constants/routes';
-import PropTypes from 'prop-types';
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
