@@ -65,6 +65,7 @@ const CreditPayment = () => {
             <label
               className="d-flex w-100"
               htmlFor="modeCredit"
+              aria-label="Pay with credit card"
             >
               <div className="d-flex-grow-1 margin-left-s">
                 <h4 className="margin-0">Credit Card</h4>
