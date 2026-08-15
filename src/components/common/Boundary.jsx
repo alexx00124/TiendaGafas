@@ -15,8 +15,8 @@ class Boundary extends Component {
   }
 
 
-  componentDidCatch(error) {
-    console.log(error);
+  componentDidCatch() {
+    // Error logged by React error boundary
   }
 
   render() {

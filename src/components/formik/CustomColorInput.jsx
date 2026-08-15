@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/forbid-prop-types */
 import PropType from 'prop-types';
 import React from 'react';
 
@@ -28,6 +26,7 @@ const InputColor = (props) => {
           {form.touched[name] && form.errors[name] ? (
             <span className="label-input label-error">{form.errors[name]}</span>
           ) : (
+            // eslint-disable-next-line jsx-a11y/label-has-associated-control
             <label className="label-input" htmlFor={name}>
               Available Colors
             </label>

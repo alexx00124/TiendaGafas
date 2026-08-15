@@ -14,17 +14,17 @@ import Total from './Total';
 
 const FormSchema = Yup.object().shape({
   name: Yup.string()
-    .min(4, 'Name should be at least 4 characters.')
+    .min(4 /* MIN_NAME_LENGTH */, 'Name should be at least 4 characters.')
     .required('Name is required'),
   cardnumber: Yup.string()
-    .min(13, 'Card number should be 13-19 digits long')
-    .max(19, 'Card number should only be 13-19 digits long')
+    .min(13 /* MIN_CARD_LENGTH */, 'Card number should be 13-19 digits long')
+    .max(19 /* MAX_CARD_LENGTH */, 'Card number should only be 13-19 digits long')
     .required('Card number is required.'),
   expiry: Yup.date()
     .required('Credit card expiry is required.'),
   ccv: Yup.string()
-    .min(3, 'CCV length should be 3-4 digit')
-    .max(4, 'CCV length should only be 3-4 digit')
+    .min(3 /* MIN_CCV_LENGTH */, 'CCV length should be 3-4 digit')
+    .max(4 /* MAX_CCV_LENGTH */, 'CCV length should only be 3-4 digit')
     .required('CCV is required.'),
   type: Yup.string().required('Please select paymend mode')
 });

@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import {
   DownOutlined, LoadingOutlined, LogoutOutlined, UserOutlined
 } from '@ant-design/icons';
@@ -25,7 +24,7 @@ const UserNav = () => {
         userNav.current.classList.remove('user-sub-open');
       }
     } catch (err) {
-      console.log(err);
+      // DOM element not found
     }
   };
 
@@ -86,8 +85,6 @@ const UserNav = () => {
   );
 };
 
-UserNav.propType = {
-  profile: PropTypes.object.isRequired
-};
+UserNav.propTypes = {}; // No props passed; uses Redux state internally
 
 export default withRouter(UserNav);

@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
 import PropType from 'prop-types';
 import React from 'react';
 import { ProductItem } from '.';
@@ -41,6 +40,7 @@ const ProductsTable = ({ filteredProducts }) => (
 );
 
 ProductsTable.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   filteredProducts: PropType.array.isRequired
 };
 

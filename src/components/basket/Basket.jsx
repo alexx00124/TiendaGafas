@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { Boundary, Modal } from '@/components/common';
 import { CHECKOUT_STEP_1 } from '@/constants/routes';
 import firebase from 'firebase/firebase';
@@ -25,11 +24,8 @@ const Basket = () => {
   useEffect(() => {
     if (didMount && firebase.auth.currentUser && basket.length !== 0) {
       firebase.saveBasketItems(basket, firebase.auth.currentUser.uid)
-        .then(() => {
-          console.log('Item saved to basket');
-        })
-        .catch((e) => {
-          console.log(e);
+        .catch(() => {
+          // Basket save failed silently
         });
     }
   }, [basket, didMount]);

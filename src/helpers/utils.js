@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 export const displayDate = (timestamp) => {
   const date = new Date(timestamp);
 
@@ -11,7 +10,6 @@ export const displayDate = (timestamp) => {
   const monthIndex = date.getMonth();
   const year = date.getFullYear();
 
-  // return day + ' ' + monthNames[monthIndex] + ' ' + year;
   return `${monthNames[monthIndex]} ${day}, ${year}`;
 };
 
@@ -21,7 +19,6 @@ export const displayMoney = (n) => {
     currency: 'USD'
   });
 
-  // or use toLocaleString()
   return format.format(n);
 };
 
@@ -33,17 +30,17 @@ export const calculateTotal = (arr) => {
   return total.toFixed(2);
 };
 
+const getStatusClass = (status) => {
+  if (status === 'info') return 'toast-info';
+  if (status === 'success') return 'toast-success';
+  return 'toast-error';
+};
+
 export const displayActionMessage = (msg, status = 'info') => {
   const div = document.createElement('div');
   const span = document.createElement('span');
 
-  div.className = `toast ${status === 'info'
-    ? 'toast-info'
-    : status === 'success'
-      ? 'toast-success'
-      : 'toast-error'
-    // eslint-disable-next-line indent
-    }`;
+  div.className = `toast ${getStatusClass(status)}`;
   span.className = 'toast-msg';
   span.textContent = msg;
   div.appendChild(span);
@@ -60,7 +57,7 @@ export const displayActionMessage = (msg, status = 'info') => {
     try {
       document.body.removeChild(div);
     } catch (e) {
-      console.log(e);
+      // Element already removed
     }
-  }, 3000);
+  }, 3000); // TOAST_TIMEOUT_MS
 };

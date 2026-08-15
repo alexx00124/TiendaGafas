@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
 import PropType from 'prop-types';
 import React from 'react';
 import FeaturedProduct from './ProductFeatured';
@@ -25,6 +24,7 @@ ProductShowcase.defaultProps = {
 };
 
 ProductShowcase.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   products: PropType.array.isRequired,
   skeletonCount: PropType.number
 };

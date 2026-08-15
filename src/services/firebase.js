@@ -12,7 +12,7 @@ class Firebase {
     this.db = app.firestore();
 
     if (import.meta.env.VITE_USE_EMULATOR === 'true') {
-      this.db.useEmulator('localhost', 4000);
+      this.db.useEmulator('localhost', 4000 /* EMULATOR_PORT */);
     }
 
     this.auth = app.auth();
@@ -109,7 +109,7 @@ class Firebase {
               .collection('products')
               .orderBy(app.firestore.FieldPath.documentId())
               .startAfter(lastRefKey)
-              .limit(12);
+              .limit(12 /* PRODUCTS_PAGE_SIZE */);
 
             const snapshot = await query.get();
             const products = [];
@@ -124,7 +124,7 @@ class Firebase {
           const timeout = setTimeout(() => {
             didTimeout = true;
             reject(new Error('Request timeout, please try again'));
-          }, 15000);
+          }, 15000 /* REQUEST_TIMEOUT_MS */);
 
           try {
             const totalQuery = await this.db.collection('products').get();
@@ -132,7 +132,7 @@ class Firebase {
             const query = this.db
               .collection('products')
               .orderBy(app.firestore.FieldPath.documentId())
-              .limit(12);
+              .limit(12 /* PRODUCTS_PAGE_SIZE */);
             const snapshot = await query.get();
 
             clearTimeout(timeout);
@@ -162,18 +162,18 @@ class Firebase {
         const timeout = setTimeout(() => {
           didTimeout = true;
           reject(new Error('Request timeout, please try again'));
-        }, 15000);
+        }, 15000 /* REQUEST_TIMEOUT_MS */);
 
         try {
           const searchedNameRef = productsRef
             .orderBy('name_lower')
             .where('name_lower', '>=', searchKey)
             .where('name_lower', '<=', `${searchKey}\uf8ff`)
-            .limit(12);
+            .limit(12 /* PRODUCTS_PAGE_SIZE */);
           const searchedKeywordsRef = productsRef
             .orderBy('dateAdded', 'desc')
             .where('keywords', 'array-contains-any', searchKey.split(' '))
-            .limit(12);
+            .limit(12 /* PRODUCTS_PAGE_SIZE */);
 
           const nameSnaps = await searchedNameRef.get();
           const keywordsSnaps = await searchedKeywordsRef.get();
@@ -217,13 +217,13 @@ class Firebase {
     });
   };
 
-  getFeaturedProducts = (itemsCount = 12) => this.db
+  getFeaturedProducts = (itemsCount = 12 /* PRODUCTS_PAGE_SIZE */) => this.db
     .collection('products')
     .where('isFeatured', '==', true)
     .limit(itemsCount)
     .get();
 
-  getRecommendedProducts = (itemsCount = 12) => this.db
+  getRecommendedProducts = (itemsCount = 12 /* PRODUCTS_PAGE_SIZE */) => this.db
     .collection('products')
     .where('isRecommended', '==', true)
     .limit(itemsCount)

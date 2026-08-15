@@ -11,17 +11,17 @@ import { signUp } from '@/redux/actions/authActions';
 import { setAuthenticating, setAuthStatus } from '@/redux/actions/miscActions';
 import * as Yup from 'yup';
 
-const SignInSchema = Yup.object().shape({
+const SignUpSchema = Yup.object().shape({
   email: Yup.string()
     .email('Email is not valid.')
     .required('Email is required.'),
   password: Yup.string()
     .required('Password is required.')
-    .min(8, 'Password length should be at least 8 characters.')
+    .min(8 /* MIN_PASSWORD_LENGTH */, 'Password length should be at least 8 characters.')
     .matches(/[A-Z\W]/g, 'Password should contain at least 1 uppercase letter.'),
   fullname: Yup.string()
     .required('Full name is required.')
-    .min(4, 'Name should be at least 4 characters.')
+    .min(4 /* MIN_NAME_LENGTH */, 'Name should be at least 4 characters.')
 });
 
 const SignUp = ({ history }) => {
@@ -60,7 +60,7 @@ const SignUp = ({ history }) => {
             password: ''
           }}
           validateOnChange
-          validationSchema={SignInSchema}
+          validationSchema={SignUpSchema}
           onSubmit={onFormSubmit}
         >
           {() => (

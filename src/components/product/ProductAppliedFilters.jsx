@@ -1,9 +1,15 @@
-/* eslint-disable no-nested-ternary */
 import { CloseCircleOutlined } from '@ant-design/icons';
 import PropType from 'prop-types';
 import React from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { applyFilter } from '@/redux/actions/filterActions';
+
+const SORT_LABELS = {
+  'price-desc': 'Price High - Low',
+  'price-asc': 'Price Low - High',
+  'name-desc': 'Name Z - A',
+  'name-asc': 'Name A - Z'
+};
 
 const ProductAppliedFilters = ({ filteredProductsCount }) => {
   const filter = useSelector((state) => state.filter, shallowEqual);
@@ -91,13 +97,7 @@ const ProductAppliedFilters = ({ filteredProductsCount }) => {
             <span className="d-block">Sort By</span>
             <div className="pill padding-right-l">
               <h5 className="pill-content margin-0">
-                {filter.sortBy === 'price-desc'
-                  ? 'Price High - Low'
-                  : filter.sortBy === 'price-asc'
-                    ? 'Price Low - High'
-                    : filter.sortBy === 'name-desc'
-                      ? 'Name Z - A'
-                      : 'Name A - Z'}
+                {SORT_LABELS[filter.sortBy] || 'Name A - Z'}
               </h5>
               <div
                 className="pill-remove"

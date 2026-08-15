@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import { useDidMount } from '@/hooks';
 import PropType from 'prop-types';
 import React, { useEffect, useState } from 'react';
@@ -28,7 +27,7 @@ const Filters = ({ closeModal }) => {
   const min = selectMin(products);
 
   useEffect(() => {
-    if (didMount && window.screen.width <= 480) {
+    if (didMount && window.screen.width <= 480 /* MOBILE_BREAKPOINT */) {
       history.push('/');
     }
 

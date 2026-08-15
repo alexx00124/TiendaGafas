@@ -14,8 +14,8 @@ import EditForm from './EditForm';
 
 const FormSchema = Yup.object().shape({
   fullname: Yup.string()
-    .min(4, 'Full name should be at least 4 characters.')
-    .max(60, 'Full name should be only be 4 characters long.')
+    .min(4 /* MIN_NAME_LENGTH */, 'Full name should be at least 4 characters.')
+    .max(60 /* MAX_NAME_LENGTH */, 'Full name should be only be 4 characters long.')
     .required('Full name is required'),
   email: Yup.string()
     .email('Email is not valid.')

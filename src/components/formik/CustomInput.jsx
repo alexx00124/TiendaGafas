@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/forbid-prop-types */
 import PropType from 'prop-types';
 import React from 'react';
 
@@ -17,7 +15,9 @@ const CustomInput = ({
       id={field.name}
       className={`input-form ${touched[field.name] && errors[field.name] && 'input-error'}`}
       ref={inputRef}
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...field}
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     />
   </div>
@@ -29,7 +29,9 @@ CustomInput.defaultProps = {
 
 CustomInput.propTypes = {
   label: PropType.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   field: PropType.object.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   form: PropType.object.isRequired,
   inputRef: PropType.oneOfType([
     PropType.func,

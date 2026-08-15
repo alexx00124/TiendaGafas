@@ -49,7 +49,7 @@ const ForgotPassword = () => {
         required
         className="input-form"
         label="* Email"
-        maxLength={40}
+        maxLength={40 /* MAX_EMAIL_LENGTH */}
         onChange={onEmailChange}
         placeholder="Enter your email"
         readOnly={isSendingForgotPWRequest || authStatus?.success}

@@ -1,5 +1,3 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable no-else-return */
 export const selectFilter = (products, filter) => {
   if (!products || products.length === 0) return [];
 
@@ -19,9 +17,11 @@ export const selectFilter = (products, filter) => {
   }).sort((a, b) => {
     if (filter.sortBy === 'name-desc') {
       return a.name < b.name ? 1 : -1;
-    } else if (filter.sortBy === 'name-asc') {
+    }
+    if (filter.sortBy === 'name-asc') {
       return a.name > b.name ? 1 : -1;
-    } else if (filter.sortBy === 'price-desc') {
+    }
+    if (filter.sortBy === 'price-desc') {
       return a.price < b.price ? 1 : -1;
     }
 
@@ -35,7 +35,7 @@ export const selectMax = (products) => {
 
   let high = products[0];
 
-  for (let i = 0; i < products.length; i++) {
+  for (let i = 0; i < products.length; i += 1) {
     if (products[i].price > high.price) {
       high = products[i];
     }
@@ -49,7 +49,7 @@ export const selectMin = (products) => {
   if (!products || products.length === 0) return 0;
   let low = products[0];
 
-  for (let i = 0; i < products.length; i++) {
+  for (let i = 0; i < products.length; i += 1) {
     if (products[i].price < low.price) {
       low = products[i];
     }
