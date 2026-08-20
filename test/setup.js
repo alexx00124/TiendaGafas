@@ -19,3 +19,16 @@ globalThis.__import_meta_env__ = {
   VITE_FIREBASE_MSG_SENDER_ID: process.env.VITE_FIREBASE_MSG_SENDER_ID || '123456789',
   VITE_FIREBASE_APP_ID: process.env.VITE_FIREBASE_APP_ID || '1:123456789:web:abc123'
 };
+
+// Polyfills para lo que arrastra whatwg-fetch / indexeddable-db en tests.
+if (!globalThis.IDBIndex) globalThis.IDBIndex = class {};
+if (!globalThis.IDBObjectStore) globalThis.IDBObjectStore = class {};
+if (!globalThis.IDBDatabase) globalThis.IDBDatabase = class {};
+if (!globalThis.IDBCursor) globalThis.IDBCursor = class {};
+if (!globalThis.IDBKeyRange) globalThis.IDBKeyRange = class {};
+if (!globalThis.IDBTransaction) globalThis.IDBTransaction = class {};
+if (!globalThis.IDBRequest) globalThis.IDBRequest = class {};
+if (!globalThis.IDBVersionChangeEvent) globalThis.IDBVersionChangeEvent = class {};
+if (!globalThis.indexedDB) globalThis.indexedDB = {};
+if (!globalThis.self) globalThis.self = globalThis;
+if (!globalThis.fetch) globalThis.fetch = jest.fn();
