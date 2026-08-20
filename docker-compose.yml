@@ -58,10 +58,7 @@ services:
       - .:/usr/src
     command: >
       sonar-scanner
-      -Dsonar.projectKey=tienda-de-gafas
-      -Dsonar.sources=src
-      -Dsonar.exclusions=node_modules/**,dist/**,static/**,coverage/**,test/**
-      -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+      -Dsonar.host.url=http://sonarqube:9000
 
   metrics-server:
     build:
