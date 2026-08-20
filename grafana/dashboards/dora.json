@@ -1,0 +1,101 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "title": "Deployment Frequency (deploys/semana)",
+      "type": "stat",
+      "gridPos": { "h": 6, "w": 6, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "tienda_dora_deployment_frequency",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "none" },
+        "overrides": []
+      }
+    },
+    {
+      "title": "Lead Time for Change (días)",
+      "type": "stat",
+      "gridPos": { "h": 6, "w": 6, "x": 6, "y": 0 },
+      "targets": [
+        {
+          "expr": "tienda_dora_lead_time_days",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "title": "Change Failure Rate (%)",
+      "type": "stat",
+      "gridPos": { "h": 6, "w": 6, "x": 12, "y": 0 },
+      "targets": [
+        {
+          "expr": "tienda_dora_change_failure_rate",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "percent" },
+        "overrides": []
+      }
+    },
+    {
+      "title": "MTTR (horas)",
+      "type": "stat",
+      "gridPos": { "h": 6, "w": 6, "x": 18, "y": 0 },
+      "targets": [
+        {
+          "expr": "tienda_dora_mttr_hours",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "title": "Resultado de Despliegues",
+      "type": "piechart",
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 6 },
+      "targets": [
+        {
+          "expr": "sum by (success) (tienda_dora_deploys_total)",
+          "legendFormat": "{{success}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "title": "Deploys a lo largo del tiempo",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 16, "x": 8, "y": 6 },
+      "targets": [
+        {
+          "expr": "sum by (success) (rate(tienda_dora_deploys_total[7d]))",
+          "legendFormat": "{{success}}",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "none" },
+        "overrides": []
+      }
+    }
+  ],
+  "schemaVersion": 37,
+  "style": "dark",
+  "tags": ["tienda", "dora"],
+  "templating": { "list": [] },
+  "time": { "from": "now-30d", "to": "now" },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Tienda de Gafas - DORA",
+  "uid": "tienda-dora",
+  "version": 1
+}

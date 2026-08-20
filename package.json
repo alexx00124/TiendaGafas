@@ -23,7 +23,8 @@
     "k6:load": "\"C:\\Program Files\\k6\\k6.exe\" run -e SCENARIO=load k6/load-test.js",
     "k6:stress": "\"C:\\Program Files\\k6\\k6.exe\" run -e SCENARIO=stress k6/load-test.js",
     "k6:soak": "\"C:\\Program Files\\k6\\k6.exe\" run -e SCENARIO=soak k6/load-test.js",
-    "k6:metrics": "\"C:\\Program Files\\k6\\k6.exe\" run k6/metrics-test.js"
+    "k6:metrics": "\"C:\\Program Files\\k6\\k6.exe\" run k6/metrics-test.js",
+    "dora": "node scripts/dora.js"
   },
   "devDependencies": {
     "@babel/core": "^7.29.7",
