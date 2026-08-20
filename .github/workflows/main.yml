@@ -9,6 +9,8 @@ jobs:
   build:
     name: Build and Deploy to Firebase Hosting
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
@@ -29,3 +31,45 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FIREBASE_PROJECT: ${{ secrets.FIREBASE_PROJECT_ID }}
+      # Health-check post-deploy + registro DORA (Change Failure Rate / MTTR)
+      - name: Health check and record DORA deploy event
+        run: |
+          URL="https://${{ secrets.FIREBASE_PROJECT_ID }}.web.app"
+          CODE=""
+          for i in 1 2 3; do
+            CODE=$(curl -sL -o /dev/null -w "%{http_code}" --max-time 60 "$URL" || true)
+            if [ "$CODE" = "200" ]; then break; fi
+            sleep 10
+          done
+          echo "health_check_code=$CODE" >> "$GITHUB_ENV"
+          if [ "$CODE" = "200" ]; then
+            echo "Health check OK ($URL)"
+          else
+            echo "::warning::Health check FAILED on $URL (HTTP $CODE)"
+          fi
+      - name: Update dora/deploy-log.json
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const logPath = 'dora/deploy-log.json';
+            let log = [];
+            if (fs.existsSync(logPath)) {
+              try { log = JSON.parse(fs.readFileSync(logPath, 'utf-8')); } catch {}
+            }
+            log.push({
+              timestamp: new Date().toISOString(),
+              sha: context.sha,
+              actor: context.actor,
+              success: process.env.health_check_code === '200',
+              healthCheckCode: process.env.health_check_code,
+            });
+            log = log.slice(-100);
+            fs.writeFileSync(logPath, JSON.stringify(log, null, 2) + '\n');
+      - name: Push updated DORA deploy log
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dora/deploy-log.json
+          git diff --cached --quiet && echo "No changes" || git commit -m "chore(dora): update deploy log [skip ci]"
+          git push

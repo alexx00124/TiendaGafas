@@ -3,6 +3,7 @@ import { check, sleep } from 'k6';
 
 const BASE_URL = __ENV.BASE_URL || 'http://localhost:3000';
 const SCENARIO = __ENV.SCENARIO || 'smoke';
+const HEADERS = { 'Accept': 'text/html' };
 
 const SCENARIOS = {
   smoke: {
@@ -58,7 +59,7 @@ const routes = [
 ];
 
 export function setup() {
-  const probe = http.get(BASE_URL);
+  const probe = http.get(BASE_URL, { headers: HEADERS });
   check(probe, {
     'servidor responde en BASE_URL': (r) => r.status < 500,
   });
@@ -70,7 +71,7 @@ export function setup() {
 
 export default function () {
   const page = routes[__VU % routes.length];
-  const res = http.get(`${BASE_URL}${page}`);
+  const res = http.get(`${BASE_URL}${page}`, { headers: HEADERS });
 
   check(res, {
     'status es 200': (r) => r.status === 200,

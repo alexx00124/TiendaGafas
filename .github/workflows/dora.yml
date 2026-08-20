@@ -1,0 +1,43 @@
+name: DORA Report
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * 1'
+
+jobs:
+  report:
+    name: Compute and publish DORA metrics
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Run DORA report
+        run: node scripts/dora.js
+      - name: Publish report to job summary
+        run: |
+          cat dora/report.json
+          {
+            echo "## DORA Metrics Report"
+            echo ""
+            echo '```json'
+            cat dora/report.json
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dora-report
+          path: dora/report.json
+          if-no-files-found: error
