@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
 import { useField } from 'formik';
 import PropType from 'prop-types';
 import React from 'react';
@@ -52,6 +51,7 @@ CustomMobileInput.defaultProps = {
 CustomMobileInput.propTypes = {
   label: PropType.string,
   placeholder: PropType.string,
+  // eslint-disable-next-line react/forbid-prop-types
   defaultValue: PropType.object.isRequired
 };
 

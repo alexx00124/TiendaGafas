@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import { FilterOutlined, ShoppingOutlined } from '@ant-design/icons';
 import * as ROUTE from '@/constants/routes';
 import logo from '@/images/logo-full.png';
@@ -26,8 +25,8 @@ const Navigation = () => {
   }));
 
   const scrollHandler = () => {
-    if (navbar.current && window.screen.width > 480) {
-      if (window.pageYOffset >= 70) {
+    if (navbar.current && window.screen.width > 480 /* MOBILE_BREAKPOINT */) {
+      if (window.pageYOffset >= 70 /* NAV_SCROLL_THRESHOLD */) {
         navbar.current.classList.add('is-nav-scrolled');
       } else {
         navbar.current.classList.remove('is-nav-scrolled');

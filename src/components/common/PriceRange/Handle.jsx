@@ -1,3 +1,4 @@
+import SliderTooltip from '@/components/common/SliderTooltip';
 import PropType from 'prop-types';
 import React, { Component } from 'react';
 
@@ -32,21 +33,7 @@ class Handle extends Component {
     return (
       <>
         {(mouseOver || isActive) && !disabled ? (
-          <div
-            style={{
-              left: `${percent}%`,
-              position: 'absolute',
-              marginLeft: '-11px',
-              marginTop: '-35px'
-            }}
-          >
-            <div className="tooltip">
-              <span className="tooltiptext">
-                Value:
-                {value}
-              </span>
-            </div>
-          </div>
+          <SliderTooltip percent={percent} value={value} />
         ) : null}
         <div
           style={{

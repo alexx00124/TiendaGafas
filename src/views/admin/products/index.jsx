@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import { Boundary } from '@/components/common';
 import { AppliedFilters, ProductList } from '@/components/product';
 import { useDocumentTitle, useScrollTop } from '@/hooks';

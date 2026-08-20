@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
 import { Boundary, MessageDisplay } from '@/components/common';
 import PropType from 'prop-types';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -69,6 +68,7 @@ ProductList.defaultProps = {
 };
 
 ProductList.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   products: PropType.object.isRequired,
   filteredProducts: PropType.array.isRequired,
   isLoading: PropType.bool.isRequired,

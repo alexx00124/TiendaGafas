@@ -121,7 +121,10 @@ function* authSaga({ type, payload }) {
         yield put(setAuthenticating(false));
         yield call(history.push, ROUTE_SIGNIN);
       } catch (e) {
-        console.log(e);
+        yield put(setAuthenticating(false));
+        yield put(setAuthStatus({
+          success: false, type: 'auth', isError: true, message: e.message
+        }));
       }
       break;
     }
@@ -136,7 +139,7 @@ function* authSaga({ type, payload }) {
         }));
         yield put(setAuthenticating(false));
       } catch (e) {
-        handleError({ code: 'auth/reset-password-error' });
+        yield handleError({ code: 'auth/reset-password-error' });
       }
       break;
     }
@@ -193,7 +196,9 @@ function* authSaga({ type, payload }) {
       try {
         yield call(firebase.setAuthPersistence);
       } catch (e) {
-        console.log(e);
+        yield put(setAuthStatus({
+          success: false, type: 'auth', isError: true, message: e.message
+        }));
       }
       break;
     }

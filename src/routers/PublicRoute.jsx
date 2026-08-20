@@ -1,5 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable react/jsx-props-no-spreading */
 import { ADMIN_DASHBOARD, SIGNIN, SIGNUP } from '@/constants/routes';
 import PropType from 'prop-types';
 import React from 'react';
@@ -10,10 +8,9 @@ const PublicRoute = ({
   isAuth, role, component: Component, path, ...rest
 }) => (
   <Route
+    // eslint-disable-next-line react/jsx-props-no-spreading
     {...rest}
-    // eslint-disable-next-line consistent-return
     render={(props) => {
-      // eslint-disable-next-line react/prop-types
       const { from } = props.location.state || { from: { pathname: '/' } };
 
       if (isAuth && role === 'ADMIN') {
@@ -43,9 +40,7 @@ PublicRoute.propTypes = {
   isAuth: PropType.bool,
   role: PropType.string,
   component: PropType.func.isRequired,
-  path: PropType.string,
-  // eslint-disable-next-line react/require-default-props
-  rest: PropType.any
+  path: PropType.string
 };
 
 const mapStateToProps = ({ auth }) => ({

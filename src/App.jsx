@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
 import { Preloader } from '@/components/common';
 import PropType from 'prop-types';
 import React, { StrictMode } from 'react';
@@ -17,8 +16,10 @@ const App = ({ store, persistor }) => (
 );
 
 App.propTypes = {
-  store: PropType.any.isRequired,
-  persistor: PropType.any.isRequired
+  // eslint-disable-next-line react/forbid-prop-types
+  store: PropType.object.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  persistor: PropType.object.isRequired
 };
 
 export default App;

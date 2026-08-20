@@ -1,5 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable react/jsx-props-no-spreading */
 import { AdminNavigation, AdminSideBar } from '@/components/common';
 import PropType from 'prop-types';
 import React from 'react';
@@ -10,6 +8,7 @@ const AdminRoute = ({
   isAuth, role, component: Component, ...rest
 }) => (
   <Route
+    // eslint-disable-next-line react/jsx-props-no-spreading
     {...rest}
     component={(props) => (
       isAuth && role === 'ADMIN' ? (
@@ -40,9 +39,7 @@ AdminRoute.defaultProps = {
 AdminRoute.propTypes = {
   isAuth: PropType.bool,
   role: PropType.string,
-  component: PropType.func.isRequired,
-  // eslint-disable-next-line react/require-default-props
-  rest: PropType.any
+  component: PropType.func.isRequired
 };
 
 export default connect(mapStateToProps)(AdminRoute);

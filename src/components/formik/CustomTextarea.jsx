@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/forbid-prop-types */
 import PropType from 'prop-types';
 import React from 'react';
 
@@ -18,7 +16,9 @@ const CustomTextarea = ({
       rows={4}
       id={field.name}
       className={`input-form ${touched[field.name] && errors[field.name] && 'input-error'}`}
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...field}
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     />
   </div>
@@ -26,7 +26,9 @@ const CustomTextarea = ({
 
 CustomTextarea.propTypes = {
   label: PropType.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   field: PropType.object.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   form: PropType.object.isRequired
 };
 

@@ -2,17 +2,16 @@ import PropType from 'prop-types';
 import React from 'react';
 
 const StepTracker = ({ current }) => {
-  // eslint-disable-next-line no-nested-ternary
-  const className = (step) => (current === step
-    ? 'is-active-step'
-    : step < current
-      ? 'is-done-step'
-      : '');
+  const getClassName = (step) => {
+    if (current === step) return 'is-active-step';
+    if (step < current) return 'is-done-step';
+    return '';
+  };
 
   return (
     <div className="checkout-header">
       <ul className="checkout-header-menu">
-        <li className={`checkout-header-list ${className(1)}`}>
+        <li className={`checkout-header-list ${getClassName(1)}`}>
           <div className="checkout-header-item">
             <div className="checkout-header-icon">
               <h4 className="checkout-header-step">1</h4>
@@ -20,7 +19,7 @@ const StepTracker = ({ current }) => {
             <h6 className="checkout-header-subtitle">Order Summary</h6>
           </div>
         </li>
-        <li className={`checkout-header-list ${className(2)}`}>
+        <li className={`checkout-header-list ${getClassName(2)}`}>
           <div className="checkout-header-item">
             <div className="checkout-header-icon">
               <h4 className="checkout-header-step">2</h4>
@@ -28,7 +27,7 @@ const StepTracker = ({ current }) => {
             <h6 className="checkout-header-subtitle">Shipping Details</h6>
           </div>
         </li>
-        <li className={`checkout-header-list ${className(3)}`}>
+        <li className={`checkout-header-list ${getClassName(3)}`}>
           <div className="checkout-header-item">
             <div className="checkout-header-icon">
               <h4 className="checkout-header-step">3</h4>

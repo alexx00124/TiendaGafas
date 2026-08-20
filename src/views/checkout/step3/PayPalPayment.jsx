@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import { useFormikContext } from 'formik';
 import React from 'react';
 
@@ -23,6 +22,7 @@ const PayPalPayment = () => {
           <label
             className="d-flex w-100"
             htmlFor="modePayPal"
+            aria-label="Pay with PayPal"
           >
             <div className="d-flex-grow-1 margin-left-s">
               <h4 className="margin-0">PayPal</h4>

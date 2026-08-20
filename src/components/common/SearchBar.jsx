@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import { SearchOutlined } from '@ant-design/icons';
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,7 +14,7 @@ const SearchBar = () => {
   const history = useHistory();
 
   const dispatch = useDispatch();
-  const isMobile = window.screen.width <= 800;
+  const isMobile = window.screen.width <= 800 /* TABLET_BREAKPOINT */;
 
   const onSearchChange = (e) => {
     const val = e.target.value.trimStart();

@@ -1,4 +1,4 @@
-import { LoadingOutlined } from '@ant-design/icons';
+import SuspenseLoader from '@/components/common/SuspenseLoader';
 import { useDocumentTitle, useScrollTop } from '@/hooks';
 import React, { lazy, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,14 +20,7 @@ const AddProduct = () => {
   return (
     <div className="product-form-container">
       <h2>Add New Product</h2>
-      <Suspense fallback={(
-        <div className="loader" style={{ minHeight: '80vh' }}>
-          <h6>Loading ... </h6>
-          <br />
-          <LoadingOutlined />
-        </div>
-      )}
-      >
+      <Suspense fallback={<SuspenseLoader />}>
         <ProductForm
           isLoading={isLoading}
           onSubmit={onSubmit}

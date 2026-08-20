@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
 import { useField } from 'formik';
 import PropType from 'prop-types';
 import React from 'react';
@@ -73,6 +72,7 @@ CustomCreatableSelect.defaultProps = {
 };
 
 CustomCreatableSelect.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   options: PropType.arrayOf(PropType.object),
   defaultValue: PropType.oneOfType([
     PropType.object,

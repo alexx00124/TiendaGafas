@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import { LoadingOutlined } from '@ant-design/icons';
 import { Boundary, MessageDisplay } from '@/components/common';
 import { ProductGrid } from '@/components/product';

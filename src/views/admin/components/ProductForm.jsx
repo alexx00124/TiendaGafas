@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import { CheckOutlined, LoadingOutlined } from '@ant-design/icons';
 import { ImageLoader } from '@/components/common';
 import {
@@ -9,6 +8,7 @@ import {
 } from 'formik';
 import { useFileHandler } from '@/hooks';
 import { displayActionMessage } from '@/helpers/utils';
+import { productShape } from '@/helpers/propTypes';
 import PropType from 'prop-types';
 import React from 'react';
 import * as Yup from 'yup';
@@ -314,24 +314,7 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
 };
 
 ProductForm.propTypes = {
-  product: PropType.shape({
-    name: PropType.string,
-    brand: PropType.string,
-    price: PropType.number,
-    maxQuantity: PropType.number,
-    description: PropType.string,
-    keywords: PropType.arrayOf(PropType.string),
-    imageCollection: PropType.arrayOf(PropType.shape({
-      id: PropType.oneOfType([PropType.string, PropType.number]),
-      url: PropType.string
-    })),
-    sizes: PropType.arrayOf(PropType.string),
-    image: PropType.string,
-    imageUrl: PropType.string,
-    isFeatured: PropType.bool,
-    isRecommended: PropType.bool,
-    availableColors: PropType.arrayOf(PropType.string)
-  }).isRequired,
+  product: productShape.isRequired,
   onSubmit: PropType.func.isRequired,
   isLoading: PropType.bool.isRequired
 };
