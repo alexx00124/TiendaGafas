@@ -7,8 +7,9 @@
       "enzyme-to-json/serializer"
   ],
   "moduleNameMapper": {
-      "^@/(.*)$": "<rootDir>/src/$1",
-      "\\.(jpg|jpeg|png|gif|webp|svg|css|scss|sass)$": "<rootDir>/test/mocks/fileMock.js"
+      "^@/.*\\.(jpg|jpeg|png|gif|webp|svg|css|scss|sass)$": "<rootDir>/test/mocks/fileMock.js",
+      "\\.(jpg|jpeg|png|gif|webp|svg|css|scss|sass)$": "<rootDir>/test/mocks/fileMock.js",
+      "^@/(.*)$": "<rootDir>/src/$1"
   },
   "transformIgnorePatterns": [
       "/node_modules/(?!(@wojtekmaj|enzyme)/)"
