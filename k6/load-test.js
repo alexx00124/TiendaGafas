@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 
-const BASE_URL = __ENV.BASE_URL || 'http://localhost:8080';
+const BASE_URL = __ENV.BASE_URL || 'http://localhost:3000';
 const SCENARIO = __ENV.SCENARIO || 'smoke';
 
 const SCENARIOS = {
@@ -57,13 +57,24 @@ const routes = [
   '/signup',
 ];
 
+export function setup() {
+  const probe = http.get(BASE_URL);
+  check(probe, {
+    'servidor responde en BASE_URL': (r) => r.status < 500,
+  });
+  if (probe.status >= 500 || probe.status === 0) {
+    throw new Error(`El servidor no responde en ${BASE_URL}. Levanta la app primero (yarn dev) o pasa -e BASE_URL=...`);
+  }
+  return { ok: true };
+}
+
 export default function () {
   const page = routes[__VU % routes.length];
   const res = http.get(`${BASE_URL}${page}`);
 
   check(res, {
     'status es 200': (r) => r.status === 200,
-    'status no es 4xx/5xx': (r) => r.status < 400,
+    'status es 2xx': (r) => r.status >= 200 && r.status < 300,
   });
 
   sleep(1);
