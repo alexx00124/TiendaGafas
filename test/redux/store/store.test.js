@@ -25,6 +25,9 @@ jest.mock('redux-saga', () => {
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { persistCombineReducers, persistStore } from 'redux-persist';
+import { LOADING } from '@/constants/constants';
+import configureStore from '@/redux/store/store';
+import rootSaga from '@/redux/sagas/rootSaga';
 
 describe('Store', () => {
   it('creates a store with correct initial state via createSagaMiddleware', () => {
@@ -74,5 +77,50 @@ describe('Store', () => {
     const mockStore = { dispatch: jest.fn(), getState: jest.fn(() => ({})) };
     const persistor = persistStore(mockStore);
     expect(persistor).toBeDefined();
+  });
+});
+
+describe('Store factory', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('creates a store and persistor wired with the saga middleware', () => {
+    // createSagaMiddleware is mocked as a singleton factory, so this is the
+    // exact middleware instance configureStore() receives internally.
+    const sagaMiddleware = createSagaMiddleware();
+
+    const { store, persistor } = configureStore();
+
+    expect(store).toBeDefined();
+    expect(typeof store.getState).toBe('function');
+    expect(typeof store.dispatch).toBe('function');
+    expect(typeof store.subscribe).toBe('function');
+    expect(persistor).toBeDefined();
+    expect(sagaMiddleware.run).toHaveBeenCalledWith(rootSaga);
+  });
+
+  it('root reducer handles a sample action dispatched on the created store', () => {
+    const { store } = configureStore();
+
+    expect(store.getState().app.loading).toBe(false);
+
+    store.dispatch({ type: LOADING, payload: true });
+
+    expect(store.getState().app.loading).toBe(true);
+  });
+
+  it('notifies subscribers when an action is dispatched', () => {
+    const { store } = configureStore();
+    const subscriber = jest.fn();
+
+    const unsubscribe = store.subscribe(subscriber);
+    store.dispatch({ type: LOADING, payload: true });
+
+    expect(subscriber).toHaveBeenCalled();
+
+    unsubscribe();
+    store.dispatch({ type: LOADING, payload: false });
+    expect(subscriber).toHaveBeenCalledTimes(1);
   });
 });
