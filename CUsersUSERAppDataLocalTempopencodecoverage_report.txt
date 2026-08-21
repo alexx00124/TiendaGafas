@@ -1,0 +1,165 @@
+----------------------------------|---------|----------|---------|---------|----------------------------------------------------
+File                              | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                                  
+----------------------------------|---------|----------|---------|---------|----------------------------------------------------
+All files                         |   48.08 |    25.69 |   31.61 |   48.35 |                                                    
+ src                              |       0 |      100 |       0 |       0 |                                                    
+  App.jsx                         |       0 |      100 |       0 |       0 | 8-18                                               
+ src/components/basket            |   12.28 |        0 |       0 |   12.72 |                                                    
+  Basket.jsx                      |     3.7 |        0 |       0 |    3.84 | 14-130                                             
+  BasketItem.jsx                  |   28.57 |        0 |       0 |   33.33 | 12-27                                              
+  BasketItemControl.jsx           |      20 |        0 |       0 |      20 | 8-22                                               
+  BasketToggle.jsx                |   15.38 |        0 |       0 |   15.38 | 4-22                                               
+ src/components/common            |   52.63 |    33.94 |   48.33 |   54.74 |                                                    
+  AdminNavigation.jsx             |      25 |      100 |       0 |   33.33 | 9-14                                               
+  AdminSidePanel.jsx              |      50 |      100 |       0 |      50 | 6                                                  
+  AuthStatus.jsx                  |     100 |      100 |     100 |     100 |                                                    
+  Badge.jsx                       |     100 |      100 |     100 |     100 |                                                    
+  Boundary.jsx                    |     100 |      100 |     100 |     100 |                                                    
+  ColorChooser.jsx                |     100 |      100 |     100 |     100 |                                                    
+  Filters.jsx                     |    5.12 |        0 |       0 |    5.71 | 11-79                                              
+  FiltersToggle.jsx               |     100 |      100 |     100 |     100 |                                                    
+  Footer.jsx                      |     100 |      100 |     100 |     100 |                                                    
+  ImageLoader.jsx                 |     100 |     87.5 |     100 |     100 | 24                                                 
+  MessageDisplay.jsx              |     100 |     87.5 |     100 |     100 | 17                                                 
+  MobileNavigation.jsx            |   22.22 |        0 |       0 |      25 | 14-32                                              
+  Modal.jsx                       |     100 |      100 |      50 |     100 |                                                    
+  Navigation.jsx                  |    4.16 |        0 |       0 |    4.76 | 17-92                                              
+  Preloader.jsx                   |     100 |      100 |     100 |     100 |                                                    
+  ProductSection.jsx              |     100 |      100 |     100 |     100 |                                                    
+  SearchBar.jsx                   |   48.64 |       20 |   36.36 |   47.22 | 25-34,39-43,48-52,58-59,63,99-106                  
+  SliderTooltip.jsx               |     100 |      100 |     100 |     100 |                                                    
+  SocialLogin.jsx                 |     100 |      100 |     100 |     100 |                                                    
+  SuspenseLoader.jsx              |     100 |      100 |     100 |     100 |                                                    
+ src/components/common/PriceRange |    25.8 |        0 |       0 |   27.58 |                                                    
+  Handle.jsx                      |   22.22 |        0 |       0 |   22.22 | 7-33                                               
+  SliderRail.jsx                  |      80 |      100 |       0 |      80 | 25                                                 
+  Tick.jsx                        |      60 |      100 |       0 |      60 | 5,43                                               
+  TooltipRail.jsx                 |       0 |        0 |       0 |       0 | 5-84                                               
+  Track.jsx                       |      75 |        0 |       0 |      75 | 7                                                  
+  index.jsx                       |   17.39 |        0 |       0 |   21.05 | 19-113                                             
+ src/components/formik            |   24.07 |        0 |       0 |   24.52 |                                                    
+  CustomColorInput.jsx            |   14.28 |        0 |       0 |   14.28 | 7-62                                               
+  CustomCreatableSelect.jsx       |   13.63 |        0 |       0 |   14.28 | 7-56                                               
+  CustomInput.jsx                 |      75 |        0 |       0 |      75 | 7                                                  
+  CustomMobileInput.jsx           |   27.27 |        0 |       0 |   27.27 | 7-23                                               
+  CustomTextarea.jsx              |   66.66 |        0 |       0 |   66.66 | 7                                                  
+ src/components/product           |   17.82 |        0 |       0 |   19.14 |                                                    
+  ProductAppliedFilters.jsx       |   21.05 |        0 |       0 |   23.52 | 15-36                                              
+  ProductFeatured.jsx             |      25 |        0 |       0 |   28.57 | 8-15                                               
+  ProductGrid.jsx                 |   33.33 |        0 |       0 |   33.33 | 7-18                                               
+  ProductItem.jsx                 |   21.42 |        0 |       0 |      25 | 10-26                                              
+  ProductList.jsx                 |   13.63 |        0 |       0 |   14.28 | 11-46                                              
+  ProductSearch.jsx               |    3.84 |        0 |       0 |       4 | 8-89                                               
+  ProductShowcaseGrid.jsx         |      50 |        0 |       0 |      50 | 6-14                                               
+ src/helpers                      |     100 |      100 |     100 |     100 |                                                    
+  propTypes.js                    |     100 |      100 |     100 |     100 |                                                    
+  utils.js                        |     100 |      100 |     100 |     100 |                                                    
+ src/hooks                        |   86.04 |    65.71 |   88.88 |   86.06 |                                                    
+  useBasket.js                    |     100 |      100 |     100 |     100 |                                                    
+  useDidMount.js                  |     100 |      100 |     100 |     100 |                                                    
+  useDocumentTitle.js             |     100 |      100 |     100 |     100 |                                                    
+  useFeaturedProducts.js          |     100 |      100 |     100 |     100 |                                                    
+  useFileHandler.js               |    60.6 |       50 |      50 |   61.29 | 31-54                                              
+  useModal.js                     |     100 |      100 |     100 |     100 |                                                    
+  useProduct.js                   |   79.16 |       50 |     100 |   77.27 | 23-30                                              
+  useProductCollection.js         |     100 |       75 |     100 |     100 | 18-36                                              
+  useRecommendedProducts.js       |     100 |      100 |     100 |     100 |                                                    
+  useScrollTop.js                 |     100 |      100 |     100 |     100 |                                                    
+ src/redux/actions                |     100 |      100 |     100 |     100 |                                                    
+  authActions.js                  |     100 |      100 |     100 |     100 |                                                    
+  basketActions.js                |     100 |      100 |     100 |     100 |                                                    
+  checkoutActions.js              |     100 |      100 |     100 |     100 |                                                    
+  filterActions.js                |     100 |      100 |     100 |     100 |                                                    
+  miscActions.js                  |     100 |      100 |     100 |     100 |                                                    
+  productActions.js               |     100 |      100 |     100 |     100 |                                                    
+  profileActions.js               |     100 |      100 |     100 |     100 |                                                    
+  userActions.js                  |     100 |      100 |     100 |     100 |                                                    
+ src/redux/reducers               |   86.48 |    76.92 |     100 |   85.91 |                                                    
+  authReducer.js                  |      80 |       50 |     100 |      80 | 16                                                 
+  basketReducer.js                |   81.25 |    71.42 |     100 |   78.57 | 28,38-41                                           
+  checkoutReducer.js              |   83.33 |       80 |     100 |   83.33 | 31                                                 
+  filterReducer.js                |     100 |      100 |     100 |     100 |                                                    
+  miscReducer.js                  |   85.71 |    83.33 |     100 |   85.71 | 38                                                 
+  productReducer.js               |    92.3 |       80 |     100 |    92.3 | 66                                                 
+  profileReducer.js               |      80 |       60 |     100 |      80 | 15                                                 
+  userReducer.js                  |   77.77 |    57.14 |     100 |      75 | 15,20                                              
+ src/redux/sagas                  |   83.03 |    79.51 |   58.82 |   85.18 |                                                    
+  authSaga.js                     |     100 |    89.65 |     100 |     100 | 102,159,163                                        
+  productSaga.js                  |   60.41 |    59.37 |   36.36 |   64.04 | 74-76,102-158                                      
+  profileSaga.js                  |     100 |    95.45 |     100 |     100 | 22                                                 
+  rootSaga.js                     |     100 |      100 |     100 |     100 |                                                    
+ src/redux/store                  |       0 |        0 |       0 |       0 |                                                    
+  store.js                        |       0 |        0 |       0 |       0 | 11-27                                              
+ src/routers                      |   42.42 |        0 |       0 |   46.66 |                                                    
+  AdminRoute.jsx                  |   57.14 |        0 |       0 |   66.66 | 10-14                                              
+  AppRouter.jsx                   |   66.66 |      100 |       0 |   66.66 | 17                                                 
+  ClientRoute.jsx                 |   36.36 |        0 |       0 |      40 | 10-26                                              
+  PublicRoute.jsx                 |   33.33 |        0 |       0 |   36.36 | 10-24                                              
+ src/selectors                    |   97.14 |    86.36 |     100 |   96.66 |                                                    
+  selector.js                     |   97.14 |    86.36 |     100 |   96.66 | 40                                                 
+ src/services                     |   24.13 |     4.16 |    1.92 |   29.91 |                                                    
+  config.js                       |     100 |      100 |     100 |     100 |                                                    
+  firebase.js                     |   23.61 |     4.16 |    1.92 |   29.31 | 15,44-54,58-64,68-78,84-88,102-148,156-214,237-240 
+ src/views/account/components     |    9.75 |        0 |       0 |   11.11 |                                                    
+  UserAccountTab.jsx              |       0 |        0 |       0 |       0 | 9-58                                               
+  UserAvatar.jsx                  |   10.52 |        0 |       0 |   11.76 | 11-76                                              
+  UserOrdersTab.jsx               |       0 |      100 |       0 |       0 | 5-6                                                
+  UserTab.jsx                     |   16.66 |        0 |       0 |      20 | 5-29                                               
+  UserWishListTab.jsx             |       0 |      100 |       0 |       0 | 5-6                                                
+ src/views/account/edit_account   |   13.95 |        0 |       0 |      15 |                                                    
+  ConfirmModal.jsx                |      25 |      100 |       0 |      25 | 8-40                                               
+  EditForm.jsx                    |   33.33 |        0 |       0 |   33.33 | 10-52                                              
+  index.jsx                       |    6.89 |        0 |       0 |    7.69 | 34-160                                             
+ src/views/account/user_account   |   41.66 |      100 |       0 |   55.55 |                                                    
+  index.jsx                       |   41.66 |      100 |       0 |   55.55 | 11,18-21                                           
+ src/views/admin/add_product      |   18.18 |      100 |       0 |   22.22 |                                                    
+  index.jsx                       |   18.18 |      100 |       0 |   22.22 | 11-20                                              
+ src/views/admin/components       |   21.27 |        0 |       0 |   21.27 |                                                    
+  ProductForm.jsx                 |      20 |        0 |       0 |      20 | 54-291                                             
+  ProductItem.jsx                 |    12.5 |        0 |       0 |    12.5 | 12-34                                              
+  ProductsNavbar.jsx              |   33.33 |      100 |       0 |   33.33 | 9-30                                               
+  ProductsTable.jsx               |      40 |        0 |       0 |      40 | 6-34                                               
+ src/views/admin/dashboard        |      25 |      100 |       0 |      25 |                                                    
+  index.jsx                       |      25 |      100 |       0 |      25 | 5-8                                                
+ src/views/admin/edit_product     |   27.27 |        0 |       0 |      30 |                                                    
+  index.jsx                       |   27.27 |        0 |       0 |      30 | 12-21                                              
+ src/views/admin/products         |   16.66 |      100 |       0 |      20 |                                                    
+  index.jsx                       |   16.66 |      100 |       0 |      20 | 12-22                                              
+ src/views/auth/forgot_password   |       5 |        0 |       0 |    5.26 |                                                    
+  index.jsx                       |       5 |        0 |       0 |    5.26 | 8-37                                               
+ src/views/auth/signin            |   14.28 |        0 |       0 |   17.64 |                                                    
+  index.jsx                       |   14.28 |        0 |       0 |   17.64 | 24-65                                              
+ src/views/auth/signup            |   16.66 |        0 |       0 |      20 |                                                    
+  index.jsx                       |   16.66 |        0 |       0 |      20 | 28-67                                              
+ src/views/checkout/components    |   22.22 |        0 |       0 |   28.57 |                                                    
+  StepTracker.jsx                 |   22.22 |        0 |       0 |   28.57 | 5-11                                               
+ src/views/checkout/hoc           |   14.28 |        0 |      25 |    9.09 |                                                    
+  withCheckout.jsx                |   14.28 |        0 |      25 |    9.09 | 8-36                                               
+ src/views/checkout/step1         |   16.66 |      100 |       0 |      20 |                                                    
+  index.jsx                       |   16.66 |      100 |       0 |      20 | 14-30                                              
+ src/views/checkout/step2         |   26.08 |        0 |       0 |   26.08 |                                                    
+  ShippingForm.jsx                |      20 |        0 |       0 |      20 | 6-65                                               
+  ShippingTotal.jsx               |      50 |        0 |       0 |      50 | 7-9                                                
+  index.jsx                       |   21.42 |        0 |       0 |   21.42 | 40-89                                              
+ src/views/checkout/step3         |   12.28 |        0 |       0 |   12.28 |                                                    
+  CreditPayment.jsx               |     3.7 |        0 |       0 |     3.7 | 6-46                                               
+  PayPalPayment.jsx               |      20 |        0 |       0 |      20 | 5-17                                               
+  Total.jsx                       |   18.18 |        0 |       0 |   18.18 | 12-36                                              
+  index.jsx                       |   21.42 |        0 |       0 |   21.42 | 33-66                                              
+ src/views/error                  |   15.38 |      100 |       0 |   15.38 |                                                    
+  Error.jsx                       |       0 |      100 |       0 |       0 | 5-24                                               
+  NoInternetPage.jsx              |       0 |      100 |       0 |       0 | 4-14                                               
+  PageNotFound.jsx                |      50 |      100 |       0 |      50 | 6-8                                                
+ src/views/featured               |      20 |      100 |       0 |      20 |                                                    
+  index.jsx                       |      20 |      100 |       0 |      20 | 7-17                                               
+ src/views/home                   |   16.66 |        0 |       0 |   16.66 |                                                    
+  index.jsx                       |   16.66 |        0 |       0 |   16.66 | 14-30                                              
+ src/views/recommended            |      20 |      100 |       0 |      20 |                                                    
+  index.jsx                       |      20 |      100 |       0 |      20 | 7-17                                               
+ src/views/search                 |      10 |        0 |       0 |   11.11 |                                                    
+  index.jsx                       |      10 |        0 |       0 |   11.11 | 12-66                                              
+ src/views/shop                   |   16.66 |      100 |       0 |      20 |                                                    
+  index.jsx                       |   16.66 |      100 |       0 |      20 | 8-18                                               
+ src/views/view_product           |     3.7 |        0 |       0 |    3.84 |                                                    
+  index.jsx                       |     3.7 |        0 |       0 |    3.84 | 18-118                                             
+----------------------------------|---------|----------|---------|---------|----------------------------------------------------

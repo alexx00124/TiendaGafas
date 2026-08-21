@@ -1,0 +1,49 @@
+schema: spec-driven
+
+context: |
+  React 17 + Vite 3 SPA (ecommerce-react) with Redux + Redux-Saga (redux-thunk also present).
+  Firebase 8 backend (Auth, Firestore, Storage); functions/ Firebase Cloud Functions.
+  Ant Design + SCSS (7-1 pattern, src/styles); React Router v5; Formik + Yup forms.
+  Package manager: yarn (yarn.lock); CI on node 20; scripts: dev / build / test / lint.
+  Observability: metrics-server/ (Express + prom-client), prometheus.yml, grafana/ provisioning.
+  Quality: ESLint (airbnb) + SonarQube + Snyk + Semgrep; docs: README.md, PROYECTO.md, GITHUB_PROJECT.md.
+  Conventions: conventional commits in Spanish (e.g. feat(F7): ...), master branch, 7 phases F1-F7 completed.
+
+testing:
+  strict_tdd: true
+  test_command: "yarn test"
+  coverage_command: "yarn test:coverage"
+  coverage_threshold: 0
+  framework: Jest 26 + Enzyme 3 (@wojtekmaj/enzyme-adapter-react-17)
+  layers:
+    unit: jest
+    integration: enzyme (component mounting, test/components)
+    e2e: none
+  quality:
+    linter: "yarn lint"
+    type_checker: none
+    formatter: none
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+  specs:
+    - Use Given/When/Then for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+  design:
+    - Include sequence diagrams for complex flows
+    - Document architecture decisions with rationale
+  tasks:
+    - Group by phase, use hierarchical numbering
+    - Keep tasks completable in one session
+  apply:
+    guidelines:
+      - Follow existing code patterns (functional components, hooks, container views in src/views)
+    tdd: true
+    test_command: "yarn test"
+  verify:
+    test_command: "yarn test"
+    build_command: "yarn build"
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas
