@@ -17,6 +17,8 @@ jest.mock('react-router-dom', () => ({
 
 import EditForm from '@/views/account/edit_account/EditForm';
 import { useFormikContext } from 'formik';
+import { useHistory } from 'react-router-dom';
+import { ACCOUNT } from '@/constants/routes';
 
 describe('EditForm', () => {
   beforeEach(() => {
@@ -66,5 +68,24 @@ describe('EditForm', () => {
     const buttons = wrapper.find('button');
     const backBtn = buttons.filterWhere((b) => b.text().includes('Back to Profile'));
     expect(backBtn.exists()).toBe(true);
+  });
+
+  it('navigates back to account on Back to Profile click', () => {
+    const pushSpy = jest.fn();
+    useHistory.mockReturnValue({ push: pushSpy });
+    const wrapper = shallow(<EditForm isLoading={false} authProvider="password" />);
+    wrapper.find('.button-muted').simulate('click');
+    expect(pushSpy).toHaveBeenCalledWith(ACCOUNT);
+  });
+
+  it('submits the form through formik submitForm on Update Profile click', () => {
+    const submitForm = jest.fn();
+    useFormikContext.mockReturnValue({
+      values: { fullname: 'John', mobile: '' },
+      submitForm
+    });
+    const wrapper = shallow(<EditForm isLoading={false} authProvider="password" />);
+    wrapper.find('.edit-user-action .button').last().simulate('click');
+    expect(submitForm).toHaveBeenCalledTimes(1);
   });
 });

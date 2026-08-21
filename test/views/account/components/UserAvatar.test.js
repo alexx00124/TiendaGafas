@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 jest.mock('react-redux', () => ({
   useSelector: jest.fn(),
@@ -12,11 +12,12 @@ jest.mock('react-router-dom', () => ({
 }));
 
 jest.mock('@/redux/actions/authActions', () => ({
-  signOut: jest.fn()
+  signOut: jest.fn(() => ({ type: 'SIGN_OUT' }))
 }));
 
 import UserAvatar from '@/views/account/components/UserAvatar';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { signOut } from '@/redux/actions/authActions';
 
 describe('UserAvatar', () => {
   afterEach(() => {
@@ -78,5 +79,60 @@ describe('UserAvatar', () => {
     });
     const wrapper = shallow(<UserAvatar />);
     expect(wrapper.find('Link').exists()).toBe(false);
+  });
+});
+
+describe('UserAvatar interactions', () => {
+  const navState = (overrides = {}) => ({
+    profile: { fullname: 'John Doe', avatar: 'a.jpg', role: 'USER' },
+    app: { isAuthenticating: false },
+    ...overrides
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    document.body.innerHTML = '';
+  });
+
+  it('toggles the dropdown open state on nav click', () => {
+    useSelector.mockImplementation((selector) => selector(navState()));
+    const wrapper = mount(<UserAvatar />);
+    const nav = wrapper.find('.user-nav');
+
+    nav.simulate('click');
+    expect(nav.getDOMNode().classList.contains('user-sub-open')).toBe(true);
+
+    nav.simulate('click');
+    expect(nav.getDOMNode().classList.contains('user-sub-open')).toBe(false);
+    wrapper.unmount();
+  });
+
+  it('closes the dropdown when clicking on an element outside of it', () => {
+    useSelector.mockImplementation((selector) => selector(navState()));
+    const wrapper = mount(<UserAvatar />);
+    const navNode = wrapper.find('.user-nav').getDOMNode();
+
+    // Open the dropdown through the component's own handler
+    wrapper.find('.user-nav').simulate('click');
+    expect(navNode.classList.contains('user-sub-open')).toBe(true);
+
+    // A click on an outside element must close it
+    const outside = document.createElement('div');
+    document.body.appendChild(outside);
+    outside.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    expect(navNode.classList.contains('user-sub-open')).toBe(false);
+    wrapper.unmount();
+  });
+
+  it('dispatches signOut when Sign Out is clicked', () => {
+    const dispatchSpy = jest.fn();
+    useDispatch.mockReturnValue(dispatchSpy);
+    useSelector.mockImplementation((selector) => selector(navState()));
+    const wrapper = mount(<UserAvatar />);
+
+    wrapper.find('.user-nav-sub h6').simulate('click');
+    expect(signOut).toHaveBeenCalledTimes(1);
+    expect(dispatchSpy).toHaveBeenCalledWith(expect.objectContaining({ type: 'SIGN_OUT' }));
+    wrapper.unmount();
   });
 });

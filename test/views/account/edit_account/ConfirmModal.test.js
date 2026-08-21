@@ -77,4 +77,13 @@ describe('ConfirmModal', () => {
     );
     expect(wrapper.find('.mock-modal').exists()).toBe(false);
   });
+
+  it('passes the typed password to onConfirmUpdate', () => {
+    const wrapper = shallow(
+      <ConfirmModal onConfirmUpdate={mockConfirmUpdate} modal={defaultModal} />
+    );
+    wrapper.find('input[type="password"]').simulate('change', { target: { value: 'secret-pass' } });
+    wrapper.find('.d-flex-center .button').simulate('click');
+    expect(mockConfirmUpdate).toHaveBeenCalledWith(expect.anything(), 'secret-pass');
+  });
 });
