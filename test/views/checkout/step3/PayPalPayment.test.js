@@ -44,4 +44,22 @@ describe('PayPalPayment', () => {
     const wrapper = shallow(<PayPalPayment />);
     expect(wrapper.find('.is-selected-payment').exists()).toBe(true);
   });
+
+  it('selects paypal through setValues when radio is checked', () => {
+    const setValues = jest.fn();
+    useFormikContext.mockReturnValue({ values: { type: 'credit' }, setValues });
+    const wrapper = shallow(<PayPalPayment />);
+
+    wrapper.find('#modePayPal').simulate('change', { target: { checked: true } });
+    expect(setValues).toHaveBeenCalledWith({ type: 'paypal' });
+  });
+
+  it('ignores radio change when unchecked', () => {
+    const setValues = jest.fn();
+    useFormikContext.mockReturnValue({ values: { type: 'credit' }, setValues });
+    const wrapper = shallow(<PayPalPayment />);
+
+    wrapper.find('#modePayPal').simulate('change', { target: { checked: false } });
+    expect(setValues).not.toHaveBeenCalled();
+  });
 });
