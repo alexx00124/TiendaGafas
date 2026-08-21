@@ -49,7 +49,7 @@ const ViewProduct = () => {
   };
 
   const handleAddToBasket = () => {
-    addToBasket({ ...product, selectedColor, selectedSize: selectedSize || product.sizes[0] });
+    addToBasket({ ...product, selectedColor, selectedSize: selectedSize || product.sizes?.[0] || '' });
   };
 
   return (
@@ -76,17 +76,17 @@ const ViewProduct = () => {
             {product.imageCollection.length !== 0 && (
               <div className="product-modal-image-collection">
                 {product.imageCollection.map((image) => (
-                  <div
+                  <button
                     className="product-modal-image-collection-wrapper"
                     key={image.id}
                     onClick={() => setSelectedImage(image.url)}
-                    role="presentation"
+                    type="button"
                   >
                     <ImageLoader
                       className="product-modal-image-collection-img"
                       src={image.url}
                     />
-                  </div>
+                  </button>
                 ))}
               </div>
             )}
@@ -114,7 +114,7 @@ const ViewProduct = () => {
                 <Select
                   placeholder="--Select Size--"
                   onChange={onSelectedSizeChange}
-                  options={product.sizes.sort((a, b) => (a < b ? -1 : 1)).map((size) => ({ label: `${size} mm`, value: size }))}
+                  options={(product.sizes || []).sort((a, b) => (a < b ? -1 : 1)).map((size) => ({ label: `${size} mm`, value: size }))}
                   styles={{ menu: (provided) => ({ ...provided, zIndex: 10 }) }}
                 />
               </div>

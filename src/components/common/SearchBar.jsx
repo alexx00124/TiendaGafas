@@ -1,4 +1,5 @@
 import { SearchOutlined } from '@ant-design/icons';
+import { TABLET_BREAKPOINT } from '@/constants/magicNumbers';
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -14,7 +15,7 @@ const SearchBar = () => {
   const history = useHistory();
 
   const dispatch = useDispatch();
-  const isMobile = window.screen.width <= 800 /* TABLET_BREAKPOINT */;
+  const isMobile = window.screen.width <= TABLET_BREAKPOINT;
 
   const onSearchChange = (e) => {
     const val = e.target.value.trimStart();
@@ -23,7 +24,6 @@ const SearchBar = () => {
 
   const onKeyUp = (e) => {
     if (e.keyCode === 13) {
-      // dispatch(setTextFilter(searchInput));
       e.target.blur();
       searchbarRef.current.classList.remove('is-open-recent-search');
 
@@ -54,7 +54,6 @@ const SearchBar = () => {
   };
 
   const onClickRecentSearch = (keyword) => {
-    // dispatch(setTextFilter(keyword));
     searchbarRef.current.classList.remove('is-open-recent-search');
     history.push(`/search/${keyword.trim().toLowerCase()}`);
   };
@@ -81,33 +80,33 @@ const SearchBar = () => {
           <div className="searchbar-recent">
             <div className="searchbar-recent-header">
               <h5>Recent Search</h5>
-              <h5
+              <button
                 className="searchbar-recent-clear text-subtle"
                 onClick={onClearRecent}
-                role="presentation"
+                type="button"
               >
                 Clear
-              </h5>
+              </button>
             </div>
             {filter.recent.map((item, index) => (
               <div
                 className="searchbar-recent-wrapper"
                 key={`search-${item}-${index}`}
               >
-                <h5
+                <button
                   className="searchbar-recent-keyword margin-0"
                   onClick={() => onClickRecentSearch(item)}
-                  role="presentation"
+                  type="button"
                 >
                   {item}
-                </h5>
-                <span
+                </button>
+                <button
                   className="searchbar-recent-button text-subtle"
                   onClick={() => dispatch(removeSelectedRecent(item))}
-                  role="presentation"
+                  type="button"
                 >
                   X
-                </span>
+                </button>
               </div>
             ))}
           </div>

@@ -50,86 +50,112 @@ function* initRequest() {
   yield put(setAuthStatus({}));
 }
 
+function* handleSignIn(signInMethod, payload) {
+  yield initRequest();
+  if (payload) {
+    yield call(signInMethod, payload.email, payload.password);
+  } else {
+    yield call(signInMethod);
+  }
+}
+
+function* handleSignUp(payload) {
+  yield initRequest();
+  const ref = yield call(firebase.createAccount, payload.email, payload.password);
+  const fullname = payload.fullname.split(' ').map((name) => name[0].toUpperCase().concat(name.substring(1))).join(' ');
+  const user = {
+    fullname,
+    avatar: defaultAvatar,
+    banner: defaultBanner,
+    email: payload.email,
+    address: '',
+    basket: [],
+    mobile: { data: {} },
+    role: 'USER',
+    dateJoined: ref.user.metadata.creationTime || new Date().getTime()
+  };
+
+  yield call(firebase.addUser, ref.user.uid, user);
+  yield put(setProfile(user));
+  yield put(setAuthenticating(false));
+}
+
+function* handleSignOut() {
+  yield initRequest();
+  yield call(firebase.signOut);
+  yield put(clearBasket());
+  yield put(clearProfile());
+  yield put(resetFilter());
+  yield put(resetCheckout());
+  yield put(signOutSuccess());
+  yield put(setAuthenticating(false));
+  yield call(history.push, ROUTE_SIGNIN);
+}
+
+function* handleAuthStateSuccess(payload) {
+  const snapshot = yield call(firebase.getUser, payload.uid);
+
+  if (snapshot.data()) {
+    const user = snapshot.data();
+    yield put(setProfile(user));
+    yield put(setBasketItems(user.basket));
+    yield put(signInSuccess({
+      id: payload.uid,
+      role: user.role,
+      provider: payload.providerData[0].providerId
+    }));
+  } else if (payload.providerData[0].providerId !== 'password' && !snapshot.data()) {
+    const user = {
+      fullname: payload.displayName ? payload.displayName : 'User',
+      avatar: payload.photoURL ? payload.photoURL : defaultAvatar,
+      banner: defaultBanner,
+      email: payload.email,
+      address: '',
+      basket: [],
+      mobile: { data: {} },
+      role: 'USER',
+      dateJoined: payload.metadata.creationTime
+    };
+    yield call(firebase.addUser, payload.uid, user);
+    yield put(setProfile(user));
+    yield put(signInSuccess({
+      id: payload.uid,
+      role: user.role,
+      provider: payload.providerData[0].providerId
+    }));
+  }
+
+  yield put(setAuthStatus({
+    success: true,
+    type: 'auth',
+    isError: false,
+    message: 'Successfully signed in. Redirecting...'
+  }));
+  yield put(setAuthenticating(false));
+}
+
 function* authSaga({ type, payload }) {
-  switch (type) {
-    case SIGNIN:
-      try {
-        yield initRequest();
-        yield call(firebase.signIn, payload.email, payload.password);
-      } catch (e) {
-        yield handleError(e);
-      }
-      break;
-    case SIGNIN_WITH_GOOGLE:
-      try {
-        yield initRequest();
-        yield call(firebase.signInWithGoogle);
-      } catch (e) {
-        yield handleError(e);
-      }
-      break;
-    case SIGNIN_WITH_FACEBOOK:
-      try {
-        yield initRequest();
-        yield call(firebase.signInWithFacebook);
-      } catch (e) {
-        yield handleError(e);
-      }
-      break;
-    case SIGNIN_WITH_GITHUB:
-      try {
-        yield initRequest();
-        yield call(firebase.signInWithGithub);
-      } catch (e) {
-        yield handleError(e);
-      }
-      break;
-    case SIGNUP:
-      try {
-        yield initRequest();
-
-        const ref = yield call(firebase.createAccount, payload.email, payload.password);
-        const fullname = payload.fullname.split(' ').map((name) => name[0].toUpperCase().concat(name.substring(1))).join(' ');
-        const user = {
-          fullname,
-          avatar: defaultAvatar,
-          banner: defaultBanner,
-          email: payload.email,
-          address: '',
-          basket: [],
-          mobile: { data: {} },
-          role: 'USER',
-          dateJoined: ref.user.metadata.creationTime || new Date().getTime()
-        };
-
-        yield call(firebase.addUser, ref.user.uid, user);
-        yield put(setProfile(user));
-        yield put(setAuthenticating(false));
-      } catch (e) {
-        yield handleError(e);
-      }
-      break;
-    case SIGNOUT: {
-      try {
-        yield initRequest();
-        yield call(firebase.signOut);
-        yield put(clearBasket());
-        yield put(clearProfile());
-        yield put(resetFilter());
-        yield put(resetCheckout());
-        yield put(signOutSuccess());
-        yield put(setAuthenticating(false));
-        yield call(history.push, ROUTE_SIGNIN);
-      } catch (e) {
-        yield put(setAuthenticating(false));
-        yield put(setAuthStatus({
-          success: false, type: 'auth', isError: true, message: e.message
-        }));
-      }
-      break;
-    }
-    case RESET_PASSWORD: {
-      try {
+  try {
+    switch (type) {
+      case SIGNIN:
+        yield handleSignIn(firebase.signIn, payload);
+        break;
+      case SIGNIN_WITH_GOOGLE:
+        yield handleSignIn(firebase.signInWithGoogle);
+        break;
+      case SIGNIN_WITH_FACEBOOK:
+        yield handleSignIn(firebase.signInWithFacebook);
+        break;
+      case SIGNIN_WITH_GITHUB:
+        yield handleSignIn(firebase.signInWithGithub);
+        break;
+      case SIGNUP:
+        yield handleSignUp(payload);
+        break;
+      case SIGNOUT:
+        yield handleSignOut();
+        break;
+      case RESET_PASSWORD:
         yield initRequest();
         yield call(firebase.passwordReset, payload);
         yield put(setAuthStatus({
@@ -138,72 +164,32 @@ function* authSaga({ type, payload }) {
           message: 'Password reset email has been sent to your provided email.'
         }));
         yield put(setAuthenticating(false));
-      } catch (e) {
-        yield handleError({ code: 'auth/reset-password-error' });
-      }
-      break;
-    }
-    case ON_AUTHSTATE_SUCCESS: {
-      const snapshot = yield call(firebase.getUser, payload.uid);
-
-      if (snapshot.data()) { // if user exists in database
-        const user = snapshot.data();
-
-        yield put(setProfile(user));
-        yield put(setBasketItems(user.basket));
-        yield put(signInSuccess({
-          id: payload.uid,
-          role: user.role,
-          provider: payload.providerData[0].providerId
-        }));
-      } else if (payload.providerData[0].providerId !== 'password' && !snapshot.data()) {
-        // add the user if auth provider is not password
-        const user = {
-          fullname: payload.displayName ? payload.displayName : 'User',
-          avatar: payload.photoURL ? payload.photoURL : defaultAvatar,
-          banner: defaultBanner,
-          email: payload.email,
-          address: '',
-          basket: [],
-          mobile: { data: {} },
-          role: 'USER',
-          dateJoined: payload.metadata.creationTime
-        };
-        yield call(firebase.addUser, payload.uid, user);
-        yield put(setProfile(user));
-        yield put(signInSuccess({
-          id: payload.uid,
-          role: user.role,
-          provider: payload.providerData[0].providerId
-        }));
-      }
-
-      yield put(setAuthStatus({
-        success: true,
-        type: 'auth',
-        isError: false,
-        message: 'Successfully signed in. Redirecting...'
-      }));
-      yield put(setAuthenticating(false));
-      break;
-    }
-    case ON_AUTHSTATE_FAIL: {
-      yield put(clearProfile());
-      yield put(signOutSuccess());
-      break;
-    }
-    case SET_AUTH_PERSISTENCE: {
-      try {
+        break;
+      case ON_AUTHSTATE_SUCCESS:
+        yield handleAuthStateSuccess(payload);
+        break;
+      case ON_AUTHSTATE_FAIL:
+        yield put(clearProfile());
+        yield put(signOutSuccess());
+        break;
+      case SET_AUTH_PERSISTENCE:
         yield call(firebase.setAuthPersistence);
-      } catch (e) {
-        yield put(setAuthStatus({
-          success: false, type: 'auth', isError: true, message: e.message
-        }));
-      }
-      break;
+        break;
+      default:
+        throw new Error('Unexpected Action Type.');
     }
-    default: {
-      throw new Error('Unexpected Action Type.');
+  } catch (e) {
+    if (type === SIGNOUT) {
+      yield put(setAuthenticating(false));
+      yield put(setAuthStatus({
+        success: false, type: 'auth', isError: true, message: e.message
+      }));
+    } else if (type === SET_AUTH_PERSISTENCE) {
+      yield put(setAuthStatus({
+        success: false, type: 'auth', isError: true, message: e.message
+      }));
+    } else {
+      yield handleError(e);
     }
   }
 }

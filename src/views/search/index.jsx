@@ -16,7 +16,6 @@ const Search = ({ match }) => {
   const store = useSelector((state) => ({
     isLoading: state.app.loading,
     products: state.products.searchedProducts.items,
-    basket: state.basket,
     requestStatus: state.app.requestStatus
   }));
 

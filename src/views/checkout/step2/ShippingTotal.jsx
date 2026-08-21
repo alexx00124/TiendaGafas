@@ -1,3 +1,4 @@
+import { INTERNATIONAL_SHIPPING_FEE } from '@/constants/magicNumbers';
 import { useFormikContext } from 'formik';
 import { displayMoney } from '@/helpers/utils';
 import PropType from 'prop-types';
@@ -18,7 +19,7 @@ const ShippingTotal = ({ subtotal }) => {
             </td>
             <td>
               <h4 className="basket-total-amount text-subtle text-right margin-0 ">
-                {values.isInternational ? `$${50 /* INTERNATIONAL_SHIPPING_FEE */}.00` : '$0.00'}
+                {values.isInternational ? `$${INTERNATIONAL_SHIPPING_FEE}.00` : '$0.00'}
               </h4>
             </td>
           </tr>
@@ -42,7 +43,9 @@ const ShippingTotal = ({ subtotal }) => {
             </td>
             <td>
               <h2 className="basket-total-amount text-right">
-                {displayMoney(Number(subtotal) + (values.isInternational ? 50 /* INTERNATIONAL_SHIPPING_FEE */ : 0))}
+                {displayMoney(
+                  Number(subtotal) + (values.isInternational ? INTERNATIONAL_SHIPPING_FEE : 0)
+                )}
               </h2>
             </td>
           </tr>

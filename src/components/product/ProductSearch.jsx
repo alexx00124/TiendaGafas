@@ -47,9 +47,9 @@ const ProductSearch = () => {
   return (
     <div className="product-search">
       <div className="product-search-header">
-        <h3 onClick={history.goBack} role="presentation">
+        <button onClick={history.goBack} type="button">
           <i className="fa fa-chevron-left" />
-        </h3>
+        </button>
         <div className="product-search-wrapper">
           <input
             className="product-search-input"
@@ -66,31 +66,31 @@ const ProductSearch = () => {
         <div className="product-search-recent">
           <div className="product-search-recent-header">
             <h5>Recent Searches</h5>
-            <h5 onClick={onClearRecentSearch} style={{ color: 'red' }} role="presentation">
+            <button onClick={onClearRecentSearch} style={{ color: 'red' }} type="button">
               Clear
-            </h5>
+            </button>
           </div>
           {filter.recent.map((item, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <div className="pill-wrapper" key={`${item}${index}`}>
               <div className="pill padding-right-l">
-                <h5
+                <button
                   className="pill-content margin-0"
                   onClick={() => {
                     dispatch(setTextFilter(item));
                     history.push('/');
                   }}
-                  role="presentation"
+                  type="button"
                 >
                   {item}
-                </h5>
-                <div
+                </button>
+                <button
                   className="pill-remove"
                   onClick={() => dispatch(removeSelectedRecent(item))}
-                  role="presentation"
+                  type="button"
                 >
-                  <h5 className="text-subtle margin-0"><i className="fa fa-times-circle" /></h5>
-                </div>
+                  <span className="text-subtle margin-0"><i className="fa fa-times-circle" /></span>
+                </button>
               </div>
             </div>
           ))}

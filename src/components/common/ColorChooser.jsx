@@ -11,12 +11,12 @@ const ColorChooser = ({ availableColors, onSelectedColorChange }) => {
   return (
     <div className="color-chooser">
       {availableColors.map((color) => (
-        <div
+        <button
           className={selectedColor === color ? 'color-item color-item-selected' : 'color-item'}
           key={color}
           onClick={() => setColor(color)}
           style={{ backgroundColor: color }}
-          role="presentation"
+          type="button"
         />
       ))}
     </div>

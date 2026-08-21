@@ -1,3 +1,4 @@
+import { PRODUCTS_PAGE_SIZE } from '@/constants/magicNumbers';
 import { useBasket } from '@/hooks';
 import PropType from 'prop-types';
 import React from 'react';
@@ -8,7 +9,7 @@ const ProductGrid = ({ products }) => {
 
   return (
     <div className="product-grid">
-      {products.length === 0 ? new Array(12 /* PRODUCTS_PAGE_SIZE */).fill({}).map((product, index) => (
+      {products.length === 0 ? new Array(PRODUCTS_PAGE_SIZE).fill({}).map((product, index) => (
         <ProductItem
           // eslint-disable-next-line react/no-array-index-key
           key={`product-skeleton ${index}`}

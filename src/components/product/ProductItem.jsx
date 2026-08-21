@@ -20,7 +20,7 @@ const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
   const itemOnBasket = isItemOnBasket ? isItemOnBasket(product.id) : false;
 
   const handleAddToBasket = () => {
-    if (addToBasket) addToBasket({ ...product, selectedSize: product.sizes[0] });
+    if (addToBasket) addToBasket({ ...product, selectedSize: product.sizes?.[0] || '' });
   };
 
   return (
@@ -33,10 +33,10 @@ const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
         }}
       >
         {itemOnBasket && <CheckOutlined className="fa fa-check product-card-check" />}
-        <div
+        <button
           className="product-card-content"
           onClick={onClickItem}
-          role="presentation"
+          type="button"
         >
           <div className="product-card-img-wrapper">
             {product.image ? (
@@ -58,7 +58,7 @@ const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
               {product.price ? displayMoney(product.price) : <Skeleton width={40} />}
             </h4>
           </div>
-        </div>
+        </button>
         {product.id && (
           <button
             className={`product-card-button button-small button button-block ${itemOnBasket ? 'button-border button-border-gray' : ''}`}

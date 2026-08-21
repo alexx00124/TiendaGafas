@@ -1,3 +1,4 @@
+import { MAX_CARD_LENGTH, MAX_CCV_LENGTH } from '@/constants/magicNumbers';
 import { CustomInput } from '@/components/formik';
 import { Field, useFormikContext } from 'formik';
 import React, { useCallback, useEffect, useRef } from 'react';
@@ -108,7 +109,7 @@ const CreditPayment = () => {
                 <Field
                   name="cardnumber"
                   type="text"
-                  maxLength={19 /* MAX_CARD_LENGTH */}
+                  maxLength={MAX_CARD_LENGTH}
                   onKeyDown={handleOnlyNumberInput}
                   label="* Card Number"
                   placeholder="Enter your card number"
@@ -130,7 +131,7 @@ const CreditPayment = () => {
                 <Field
                   name="ccv"
                   type="text"
-                  maxLength={4 /* MAX_CCV_LENGTH */}
+                  maxLength={MAX_CCV_LENGTH}
                   onKeyDown={handleOnlyNumberInput}
                   label="* CCV"
                   placeholder="****"

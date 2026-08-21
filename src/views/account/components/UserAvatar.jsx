@@ -44,13 +44,12 @@ const UserNav = () => {
       <LoadingOutlined />
     </div>
   ) : (
-    <div
+    <button
       className="user-nav"
       onClick={onClickNav}
       onKeyDown={() => { }}
       ref={userNav}
-      role="button"
-      tabIndex={0}
+      type="button"
     >
       <h5 className="text-overflow-ellipsis">{profile.fullname && profile.fullname.split(' ')[0]}</h5>
       <div className="user-nav-img-wrapper">
@@ -71,16 +70,16 @@ const UserNav = () => {
             <UserOutlined />
           </Link>
         )}
-        <h6
+        <button
           className="user-nav-sub-link margin-0 d-flex"
           onClick={() => dispatch(signOut())}
-          role="presentation"
+          type="button"
         >
           Sign Out
           <LogoutOutlined />
-        </h6>
+        </button>
       </div>
-    </div>
+    </button>
   );
 };
 

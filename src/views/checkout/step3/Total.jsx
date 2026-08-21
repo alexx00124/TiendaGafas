@@ -1,4 +1,5 @@
 import { ArrowLeftOutlined, CheckOutlined } from '@ant-design/icons';
+import { INTERNATIONAL_SHIPPING_FEE } from '@/constants/magicNumbers';
 import { CHECKOUT_STEP_2 } from '@/constants/routes';
 import { useFormikContext } from 'formik';
 import { displayMoney } from '@/helpers/utils';
@@ -26,7 +27,7 @@ const Total = ({ isInternational, subtotal }) => {
       <div className="basket-total text-right">
         <p className="basket-total-title">Total:</p>
         <h2 className="basket-total-amount">
-          {displayMoney(subtotal + (isInternational ? 50 /* INTERNATIONAL_SHIPPING_FEE */ : 0))}
+          {displayMoney(subtotal + (isInternational ? INTERNATIONAL_SHIPPING_FEE : 0))}
         </h2>
       </div>
       <br />

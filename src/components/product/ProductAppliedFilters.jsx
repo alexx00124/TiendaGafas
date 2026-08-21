@@ -49,11 +49,11 @@ const ProductAppliedFilters = ({ filteredProductsCount }) => {
             <span className="d-block">Keyword</span>
             <div className="pill padding-right-l">
               <h5 className="pill-content margin-0">{filter.keyword}</h5>
-              <div className="pill-remove" onClick={onRemoveKeywordFilter} role="presentation">
-                <h5 className="margin-0 text-subtle">
+              <button className="pill-remove" onClick={onRemoveKeywordFilter} type="button">
+                <span className="margin-0 text-subtle">
                   <CloseCircleOutlined />
-                </h5>
-              </div>
+                </span>
+              </button>
             </div>
           </div>
         )}
@@ -62,11 +62,11 @@ const ProductAppliedFilters = ({ filteredProductsCount }) => {
             <span className="d-block">Brand</span>
             <div className="pill padding-right-l">
               <h5 className="pill-content margin-0">{filter.brand}</h5>
-              <div className="pill-remove" onClick={onRemoveBrandFilter} role="presentation">
-                <h5 className="margin-0 text-subtle">
+              <button className="pill-remove" onClick={onRemoveBrandFilter} type="button">
+                <span className="margin-0 text-subtle">
                   <CloseCircleOutlined />
-                </h5>
-              </div>
+                </span>
+              </button>
             </div>
           </div>
         )}
@@ -80,15 +80,15 @@ const ProductAppliedFilters = ({ filteredProductsCount }) => {
                 - $
                 {filter.maxPrice}
               </h5>
-              <div
+              <button
                 className="pill-remove"
                 onClick={onRemovePriceRangeFilter}
-                role="presentation"
+                type="button"
               >
-                <h5 className="margin-0 text-subtle">
+                <span className="margin-0 text-subtle">
                   <CloseCircleOutlined />
-                </h5>
-              </div>
+                </span>
+              </button>
             </div>
           </div>
         )}
@@ -99,15 +99,15 @@ const ProductAppliedFilters = ({ filteredProductsCount }) => {
               <h5 className="pill-content margin-0">
                 {SORT_LABELS[filter.sortBy] || 'Name A - Z'}
               </h5>
-              <div
+              <button
                 className="pill-remove"
                 onClick={onRemoveSortFilter}
-                role="presentation"
+                type="button"
               >
-                <h5 className="margin-0 text-subtle">
+                <span className="margin-0 text-subtle">
                   <CloseCircleOutlined />
-                </h5>
-              </div>
+                </span>
+              </button>
             </div>
           </div>
         )}

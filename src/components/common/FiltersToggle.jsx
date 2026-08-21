@@ -9,13 +9,13 @@ const FiltersToggle = ({ children }) => {
 
   return (
     <>
-      <div
+      <button
         className="filters-toggle"
         onClick={onOpenModal}
-        role="presentation"
+        type="button"
       >
         {children}
-      </div>
+      </button>
       <Modal
         isOpen={isOpenModal}
         onRequestClose={onCloseModal}

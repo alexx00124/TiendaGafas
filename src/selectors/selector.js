@@ -1,7 +1,7 @@
 export const selectFilter = (products, filter) => {
   if (!products || products.length === 0) return [];
 
-  const keyword = filter.keyword.toLowerCase();
+  const keyword = filter.keyword?.toLowerCase() ?? '';
 
   return products.filter((product) => {
     const isInRange = filter.maxPrice

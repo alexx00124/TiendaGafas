@@ -31,7 +31,7 @@ class Boundary extends Component {
       );
     }
 
-    return children;
+    return <>{children}</>;
   }
 }
 

@@ -14,6 +14,7 @@ const Products = () => {
 
   const store = useSelector((state) => ({
     filteredProducts: selectFilter(state.products.items, state.filter),
+    filter: state.filter,
     requestStatus: state.app.requestStatus,
     isLoading: state.app.loading,
     products: state.products

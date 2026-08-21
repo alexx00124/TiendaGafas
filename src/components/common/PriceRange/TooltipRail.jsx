@@ -9,7 +9,6 @@ const railStyle = {
   height: 20,
   cursor: 'pointer',
   zIndex: 300
-  // border: '1px solid grey',
 };
 
 const railCenterStyle = {

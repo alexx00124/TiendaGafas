@@ -34,7 +34,9 @@ const ProductList = (props) => {
     return (
       <MessageDisplay message={requestStatus?.message || 'No products found.'} />
     );
-  } if (filteredProducts.length === 0 && requestStatus) {
+  }
+
+  if (filteredProducts.length === 0 && requestStatus) {
     return (
       <MessageDisplay
         message={requestStatus?.message || 'Something went wrong :('}

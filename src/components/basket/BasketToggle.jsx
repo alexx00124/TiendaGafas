@@ -1,4 +1,5 @@
 import PropType from 'prop-types';
+import { useEffect } from 'react';
 
 const BasketToggle = ({ children }) => {
   const onClickToggle = () => {
@@ -9,15 +10,19 @@ const BasketToggle = ({ children }) => {
     }
   };
 
-  document.addEventListener('click', (e) => {
-    const closest = e.target.closest('.basket');
-    const toggle = e.target.closest('.basket-toggle');
-    const closeToggle = e.target.closest('.basket-item-remove');
+  useEffect(() => {
+    const handler = (e) => {
+      const closest = e.target.closest('.basket');
+      const toggle = e.target.closest('.basket-toggle');
+      const closeToggle = e.target.closest('.basket-item-remove');
 
-    if (!closest && document.body.classList.contains('is-basket-open') && !toggle && !closeToggle) {
-      document.body.classList.remove('is-basket-open');
-    }
-  });
+      if (!closest && document.body.classList.contains('is-basket-open') && !toggle && !closeToggle) {
+        document.body.classList.remove('is-basket-open');
+      }
+    };
+    document.addEventListener('click', handler);
+    return () => document.removeEventListener('click', handler);
+  }, []);
 
   return children({ onClickToggle });
 };

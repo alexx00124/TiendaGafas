@@ -1,3 +1,5 @@
+import { TOAST_TIMEOUT_MS } from '@/constants/magicNumbers';
+
 export const displayDate = (timestamp) => {
   const date = new Date(timestamp);
 
@@ -55,9 +57,9 @@ export const displayActionMessage = (msg, status = 'info') => {
 
   setTimeout(() => {
     try {
-      document.body.removeChild(div);
+      if (div.parentNode) div.remove();
     } catch (e) {
       // Element already removed
     }
-  }, 3000); // TOAST_TIMEOUT_MS
+  }, TOAST_TIMEOUT_MS);
 };

@@ -29,6 +29,8 @@ const useFileHandler = (initState) => {
       displayActionMessage('File size exceeded 500kb, consider optimizing your image', 'error');
       setFileLoading(false);
     } else if (type === 'multiple') {
+      let loadedCount = 0;
+      const totalFiles = event.target.files.length;
       Array.from(event.target.files).forEach((file) => {
         const reader = new FileReader();
         reader.addEventListener('load', (e) => {
@@ -36,11 +38,11 @@ const useFileHandler = (initState) => {
             ...oldFiles,
             [name]: [...oldFiles[name], { file, url: e.target.result, id: uuidv4() }]
           }));
+          loadedCount += 1;
+          if (loadedCount === totalFiles) setFileLoading(false);
         });
         reader.readAsDataURL(file);
       });
-
-      setFileLoading(false);
     } else { // type is single
       const reader = new FileReader();
 

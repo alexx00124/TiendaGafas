@@ -1,5 +1,6 @@
 import { FilterOutlined, ShoppingOutlined } from '@ant-design/icons';
 import * as ROUTE from '@/constants/routes';
+import { MOBILE_BREAKPOINT, NAV_SCROLL_THRESHOLD, TABLET_BREAKPOINT } from '@/constants/magicNumbers';
 import logo from '@/images/logo-full.png';
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
@@ -25,8 +26,8 @@ const Navigation = () => {
   }));
 
   const scrollHandler = () => {
-    if (navbar.current && window.screen.width > 480 /* MOBILE_BREAKPOINT */) {
-      if (window.pageYOffset >= 70 /* NAV_SCROLL_THRESHOLD */) {
+    if (navbar.current && window.screen.width > MOBILE_BREAKPOINT) {
+      if (window.pageYOffset >= NAV_SCROLL_THRESHOLD) {
         navbar.current.classList.add('is-nav-scrolled');
       } else {
         navbar.current.classList.remove('is-nav-scrolled');
@@ -55,7 +56,9 @@ const Navigation = () => {
 
   if (store.user && store.user.role === 'ADMIN') {
     return null;
-  } if (window.screen.width <= 800) {
+  }
+
+  if (window.screen.width <= TABLET_BREAKPOINT) {
     return (
       <MobileNavigation
         // eslint-disable-next-line react/jsx-props-no-spreading

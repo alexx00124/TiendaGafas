@@ -14,7 +14,7 @@ const ProductFeatured = ({ product }) => {
 
   return (
     <SkeletonTheme color="#e1e1e1" highlightColor="#f2f2f2">
-      <div className="product-display" onClick={onClickItem} role="presentation">
+      <button className="product-display" onClick={onClickItem} type="button">
         <div className="product-display-img">
           {product.image ? (
             <ImageLoader
@@ -29,7 +29,7 @@ const ProductFeatured = ({ product }) => {
             {product.brand || <Skeleton width={40} />}
           </p>
         </div>
-      </div>
+      </button>
     </SkeletonTheme>
   );
 };

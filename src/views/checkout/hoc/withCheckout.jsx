@@ -1,3 +1,4 @@
+import { INTERNATIONAL_SHIPPING_FEE } from '@/constants/magicNumbers';
 import { SIGNIN } from '@/constants/routes';
 import { calculateTotal } from '@/helpers/utils';
 import React from 'react';
@@ -13,14 +14,18 @@ const withCheckout = (Component) => withRouter((props) => {
     profile: store.profile
   }));
 
-  const shippingFee = state.shipping.isInternational ? 50 /* INTERNATIONAL_SHIPPING_FEE */ : 0;
+  const shippingFee = state.shipping.isInternational ? INTERNATIONAL_SHIPPING_FEE : 0;
   const subtotal = calculateTotal(state.basket.map((product) => product.price * product.quantity));
 
   if (!state.isAuth) {
     return <Redirect to={SIGNIN} />;
-  } if (state.basket.length === 0) {
+  }
+
+  if (state.basket.length === 0) {
     return <Redirect to="/" />;
-  } if (state.isAuth && state.basket.length !== 0) {
+  }
+
+  if (state.isAuth && state.basket.length !== 0) {
     return (
       <Component
         // eslint-disable-next-line react/jsx-props-no-spreading

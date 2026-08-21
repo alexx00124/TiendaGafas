@@ -4,6 +4,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
+const AdminContent = ({ component: Component, ...props }) => (
+  <>
+    <AdminNavigation />
+    <main className="content-admin">
+      <AdminSideBar />
+      <div className="content-admin-wrapper">
+        <Component {...props} />
+      </div>
+    </main>
+  </>
+);
+
 const AdminRoute = ({
   isAuth, role, component: Component, ...rest
 }) => (
@@ -11,17 +23,9 @@ const AdminRoute = ({
     // eslint-disable-next-line react/jsx-props-no-spreading
     {...rest}
     component={(props) => (
-      isAuth && role === 'ADMIN' ? (
-        <>
-          <AdminNavigation />
-          <main className="content-admin">
-            <AdminSideBar />
-            <div className="content-admin-wrapper">
-              <Component {...props} />
-            </div>
-          </main>
-        </>
-      ) : <Redirect to="/" />
+      isAuth && role === 'ADMIN'
+        ? <AdminContent component={Component} {...props} />
+        : <Redirect to="/" />
     )}
   />
 );

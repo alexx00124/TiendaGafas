@@ -27,14 +27,14 @@ const PriceRange = ({
   });
 
   const onUpdate = (update) => {
-    setState(() => ({
-      ...state, update, inputMin: update[0], inputMax: update[1]
+    setState((prev) => ({
+      ...prev, update, inputMin: update[0], inputMax: update[1]
     }));
   };
 
   const onChange = (values) => {
-    setState(() => ({
-      ...state, values, inputMin: values[0], inputMax: values[1]
+    setState((prev) => ({
+      ...prev, values, inputMin: values[0], inputMax: values[1]
     }));
     if (values[0] < values[1]) onPriceChange(...values);
   };

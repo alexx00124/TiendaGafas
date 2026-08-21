@@ -1,3 +1,4 @@
+import { MOBILE_BREAKPOINT } from '@/constants/magicNumbers';
 import { useDidMount } from '@/hooks';
 import PropType from 'prop-types';
 import React, { useEffect, useState } from 'react';
@@ -27,7 +28,7 @@ const Filters = ({ closeModal }) => {
   const min = selectMin(products);
 
   useEffect(() => {
-    if (didMount && window.screen.width <= 480 /* MOBILE_BREAKPOINT */) {
+    if (didMount && window.screen.width <= MOBILE_BREAKPOINT) {
       history.push('/');
     }
 
@@ -120,21 +121,25 @@ const Filters = ({ closeModal }) => {
         <span>Price Range</span>
         <br />
         <br />
-        {(products.length === 0 && isLoading) || max === 0 ? (
-          <h5 className="text-subtle">Loading Filter</h5>
-        ) : products.length === 1 ? (
-          <h5 className="text-subtle">No Price Range</h5>
-        ) : (
-          <PriceRange
-            min={min}
-            max={max}
-            initMin={field.minPrice}
-            initMax={field.maxPrice}
-            isLoading={isLoading}
-            onPriceChange={onPriceChange}
-            productsCount={products.length}
-          />
-        )}
+        {(() => {
+          if ((products.length === 0 && isLoading) || max === 0) {
+            return <h5 className="text-subtle">Loading Filter</h5>;
+          }
+          if (products.length === 1) {
+            return <h5 className="text-subtle">No Price Range</h5>;
+          }
+          return (
+            <PriceRange
+              min={min}
+              max={max}
+              initMin={field.minPrice}
+              initMax={field.maxPrice}
+              isLoading={isLoading}
+              onPriceChange={onPriceChange}
+              productsCount={products.length}
+            />
+          );
+        })()}
       </div>
       <div className="filters-action">
         <button

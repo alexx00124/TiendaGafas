@@ -1,53 +1,56 @@
 import { ADMIN_DASHBOARD, SIGNIN } from '@/constants/routes';
 import PropType from 'prop-types';
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
-const PrivateRoute = ({
-  isAuth, role, component: Component, ...rest
-}) => (
-  <Route
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    {...rest}
-    component={(props) => {
-      if (isAuth && role === 'USER') {
-        return (
-          <main className="content">
-            <Component {...props} />
-          </main>
-        );
-      }
+const ClientContent = ({ component: Component, ...props }) => {
+  const { isAuth, role } = useSelector((state) => ({
+    isAuth: !!state.auth,
+    role: state.auth?.role || ''
+  }));
 
-      if (isAuth && role === 'ADMIN') {
-        return <Redirect to={ADMIN_DASHBOARD} />;
-      }
+  if (isAuth && role === 'USER') {
+    return (
+      <main className="content">
+        <Component {...props} />
+      </main>
+    );
+  }
 
-      return (
-        <Redirect to={{
-          pathname: SIGNIN,
-          state: { from: props.location }
-        }}
-        />
-      );
+  if (isAuth && role === 'ADMIN') {
+    return <Redirect to={ADMIN_DASHBOARD} />;
+  }
+
+  return (
+    <Redirect to={{
+      pathname: SIGNIN,
+      state: { from: props.location }
     }}
-  />
-);
-
-PrivateRoute.defaultProps = {
-  isAuth: false,
-  role: 'USER'
+    />
+  );
 };
 
-PrivateRoute.propTypes = {
-  isAuth: PropType.bool,
-  role: PropType.string,
+ClientContent.propTypes = {
   component: PropType.func.isRequired
 };
 
-const mapStateToProps = ({ auth }) => ({
-  isAuth: !!auth,
-  role: auth?.role || ''
-});
+function createClientRoute(WrappedComponent) {
+  return function ClientRouteHandler(routeProps) {
+    return <ClientContent component={WrappedComponent} {...routeProps} />;
+  };
+}
 
-export default connect(mapStateToProps)(PrivateRoute);
+const PrivateRoute = ({ component, ...rest }) => (
+  <Route
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    {...rest}
+    component={createClientRoute(component)}
+  />
+);
+
+PrivateRoute.propTypes = {
+  component: PropType.func.isRequired
+};
+
+export default PrivateRoute;

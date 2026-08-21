@@ -14,10 +14,13 @@ const UserTab = (props) => {
             <li
               className={`user-tab-item ${child.props.index === activeTab ? 'user-tab-active' : ''}`}
               key={child.props.label}
-              role="presentation"
-              onClick={() => onClickTabItem(child.props.index)}
             >
-              {child.props.label}
+              <button
+                onClick={() => onClickTabItem(child.props.index)}
+                type="button"
+              >
+                {child.props.label}
+              </button>
             </li>
           ))}
         </ul>

@@ -90,13 +90,13 @@ const Basket = () => {
             </h3>
             <BasketToggle>
               {({ onClickToggle }) => (
-                <span
+                <button
                   className="basket-toggle button button-border button-border-gray button-small"
                   onClick={onClickToggle}
-                  role="presentation"
+                  type="button"
                 >
                   Close
-                </span>
+                </button>
               )}
             </BasketToggle>
             <button
